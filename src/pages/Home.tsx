@@ -1,6 +1,13 @@
+import { Checkbox } from "@mantine/core"
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+     <Checkbox
+      defaultChecked
+      label="I agree to sell my privacy"
+    />
+    </div>
   )
 }
 
