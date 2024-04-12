@@ -1,8 +1,8 @@
 // import { Checkbox } from "@mantine/core";
-import UploadImage from "./UploadImage";
-import ListBackground from "./ListBackground";
-import ListFeature from "./ListFeature";
-import DownloadMobilePhone from "./DownloadMobilePhone";
+import UploadImage from "../components/UploadImage";
+import ListBackground from "../components/ListBackground";
+import ListFeature from "../components/ListFeature";
+import DownloadMobilePhone from "../components/DownloadMobilePhone";
 const Home = () => {
   return (
     <div>
