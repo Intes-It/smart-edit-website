@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Wrapper from "./layout/Wrapper";
 import AnimeAi from "./pages/AnimeAi";
 import Bokeh from "./pages/Bokeh";
+import EditBokeh from "./pages/EditBokeh";
 import EditImage from "./pages/EditImage";
 import Enhance from "./pages/Enhance";
 import FaceChange from "./pages/FaceChange";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "bokeh",
         element: <Bokeh />,
+      },
+      {
+        path: "bokeh/edit",
+        element: <EditBokeh />,
       },
       {
         path: "anime-ai",
