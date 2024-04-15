@@ -1,9 +1,12 @@
-import Router from "./Router";
 import { MantineProvider } from "@mantine/core";
+import Router from "./Router";
+import { ContextProvider } from "./contexts/contextProvider";
 function App() {
   return (
     <MantineProvider>
-      <Router />
+      <ContextProvider>
+        <Router />
+      </ContextProvider>
     </MantineProvider>
   );
 }

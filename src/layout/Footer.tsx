@@ -49,14 +49,18 @@ const Footer = () => {
         <div className="flex justify-between md:gap-[100px] gap-6 sm:flex-row flex-col">
           <div className="flex flex-col text-[#F6E3F9] gap-3">
             <div className="text-white">Tools</div>
-            {listTools.map((item) => (
-              <Link to={item.hrf}>{item.title}</Link>
+            {listTools.map((item, index) => (
+              <Link key={index} to={item.hrf}>
+                {item.title}
+              </Link>
             ))}
           </div>
           <div className="flex flex-col text-[#F6E3F9] gap-3">
             <div className="text-white">Help</div>
-            {ListHelps.map((item) => (
-              <Link to={item.hrf}>{item.title}</Link>
+            {ListHelps.map((item, index) => (
+              <Link key={index} to={item.hrf}>
+                {item.title}
+              </Link>
             ))}
           </div>
         </div>
