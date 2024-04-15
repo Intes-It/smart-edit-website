@@ -19,10 +19,6 @@ const router = createBrowserRouter([
         element: <EditImage />,
       },
       {
-        path: "/remove-object",
-        element: <RemoveObject />,
-      },
-      {
         path: "*",
         element: <Notfound />,
       },
