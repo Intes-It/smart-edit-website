@@ -6,6 +6,13 @@ import { Navigation } from "swiper/modules";
 import RemoveBackground from "../assets/remove_background.svg";
 import RemovePeople from "../assets/remove_people.svg";
 import BokehBackground from "../assets/bokeh_background.svg";
+import remove_wire from "../assets/remove_wire.png";
+import face_id from "../assets/face_id.png";
+import pet_id_photo from "../assets/pet_id_photo.png";
+import hot_trend from "../assets/hot_trend.png";
+import anime_ai from "../assets/anime_ai.png";
+import enhance_iamge from "../assets/enhance_iamge.png";
+import face_change from "../assets/face_change.png";
 
 const ListFeature = () => {
   const listSteps = [
@@ -28,20 +35,45 @@ const ListFeature = () => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
     },
     {
-      image: RemoveBackground,
-      header: "Remove background",
+      image: remove_wire,
+      header: "Remove wire",
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
     },
     {
-      image: BokehBackground,
-      header: "Bokeh background",
+      image: face_id,
+      header: "Face ID",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+    },
+    {
+      image: pet_id_photo,
+      header: "Pet ID photo",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+    },
+
+    {
+      image: hot_trend,
+      header: "Hot trend",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+    },
+    {
+      image: anime_ai,
+      header: "Anime AI",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+    },
+    {
+      image: enhance_iamge,
+      header: "Enhance image",
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ",
     },
     {
-      image: RemovePeople,
-      header: "Remove people",
+      image: face_change,
+      header: "Face change",
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
     },
