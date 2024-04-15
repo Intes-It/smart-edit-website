@@ -40,8 +40,19 @@ const EditImage = () => {
         />
         <div className="mt-[68px] flex-row flex justify-between">
           <div className="flex flex-row gap-2">
-            <img src={IconTurnLeft} alt="icon-turn-left" />
-            <img src={IconTurnRight} alt="icon-turn-right" />
+            <div className="flex-col flex ">
+              <img src={IconTurnLeft} alt="icon-turn-left" />
+              <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
+                0
+              </div>
+            </div>
+
+            <div className="flex-col flex ">
+              <img src={IconTurnRight} alt="icon-turn-right" />
+              <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
+                0
+              </div>
+            </div>
           </div>
           <div className="flex flex-row">
             <div
