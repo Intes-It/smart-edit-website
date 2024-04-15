@@ -9,6 +9,7 @@ import FaceId from "./pages/FaceId";
 import Notfound from "./pages/Notfound";
 import RemoveBackground from "./pages/RemoveBackground";
 import RemoveObject from "./pages/RemoveObject";
+import EditRemoveObject from "./pages/EditRemoveObject";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "remove-object",
         element: <RemoveObject />,
+      },
+      {
+        path: "remove-object/edit",
+        element: <EditRemoveObject />,
       },
       {
         path: "face-change",
