@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import IconUpload from "../assets/picture_upload.svg";
 import { useImageContext } from "../contexts/imageContext";
 import { UploadImageProps } from "../types";
@@ -12,12 +12,14 @@ const UploadImage = ({
   const { setImage } = useImageContext();
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0];
     if (uploadedFile) {
       setImage(uploadedFile);
-      navigate("edit");
+      if (pathname === "/") navigate("/remove-object/edit");
+      else navigate("edit");
       // Process the uploaded file (e.g., read contents, upload to server)
     }
   };

@@ -1,13 +1,47 @@
 import { Button } from "@mantine/core";
-import IconUploadBlack from "../assets/icon_upload_black.svg";
-import ImageRemoveBackground from "../assets/image-remove-background.png";
+import { useEffect, useState } from "react";
+import axiosClient from "../api/AxiosClient";
+import ArrowRight from "../assets/arrow-right-outline.png";
 import IconTurnLeft from "../assets/icon-turn-left.svg";
 import IconTurnRight from "../assets/icon-turn-right.svg";
-import ArrowRight from "../assets/arrow-right-outline.png";
+import IconUploadBlack from "../assets/icon_upload_black.svg";
 import AddOutline from "../assets/ion_add-outline.png";
+import Loading from "../components/Loading";
+import { useImageContext } from "../contexts/imageContext";
+
 const EditImage = () => {
+  const imageContext = useImageContext();
+
+  const [image, setImage] = useState<File | null | any>(null);
+  const [imageRes, setImageRes] = useState<string | null>(null);
+
+  const handleEdit = async () => {
+    try {
+      const formData = new FormData();
+
+      formData.append("stype", "bgrem");
+      formData.append("crop", true as any);
+      formData.append("file", imageContext.image as File);
+
+      console.log("formData", formData);
+
+      const res = await axiosClient.post("bgrem", formData);
+      if (res.status === 200) {
+        setImageRes(res.data?.result);
+      }
+      console.log("res", res);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (imageContext.image) {
+      handleEdit();
+    }
+  }, [imageContext.image]);
+
   return (
     <div className="bg-white px-[200px] pt-10 pb-[118px]">
+      <Loading title="Working on your photo. Please wait" />
       <div
         style={{ boxShadow: "0px 2px 4px 0px #00000026" }}
         className="bg-[#F8F8F8] p-4"
@@ -31,23 +65,29 @@ const EditImage = () => {
           </Button>
         </div>
       </div>
-      <div className="mt-8">
-        <img
-          src={ImageRemoveBackground}
-          alt=" image remove background"
-          width={"100%"}
-          height={"100%"}
-        />
+      {imageRes && <img src={`data:image/jpeg;base64,${imageRes}`} />}
+      <div className="mt-8 ">
+        <div className=" min-h-[200px]">
+          {(image || imageContext.image) && (
+            <img
+              src={imageContext.image || image}
+              alt=" image remove background"
+              className="w-[1040px] h-[500px] object-cover"
+              width={"100%"}
+              height={"100%"}
+            />
+          )}
+        </div>
         <div className="mt-[68px] flex-row flex justify-between">
           <div className="flex flex-row gap-2">
-            <div className="flex-col flex ">
+            <div className="flex flex-col ">
               <img src={IconTurnLeft} alt="icon-turn-left" />
               <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
                 0
               </div>
             </div>
 
-            <div className="flex-col flex ">
+            <div className="flex flex-col ">
               <img src={IconTurnRight} alt="icon-turn-right" />
               <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
                 0
