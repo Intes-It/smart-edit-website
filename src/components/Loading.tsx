@@ -5,7 +5,7 @@ const Loading = ({ title = "" }: { title?: string }) => {
   console.log("title", title);
   return (
     <div
-      className="fixed translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2"
+      className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center w-screen h-screen "
       style={{
         zIndex: 999999,
       }}

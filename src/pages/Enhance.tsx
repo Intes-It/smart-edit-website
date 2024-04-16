@@ -10,7 +10,7 @@ import {
 import step3 from "../assets/step-final.png";
 import DownloadMobilePhone from "../components/DownloadMobilePhone";
 import ListBackground from "../components/ListBackground";
-import ListFeature from "../components/ListFeature";
+import OurFeature from "../components/OurFeature";
 import UploadImage from "../components/UploadImage";
 
 const Enhance = () => {
@@ -40,7 +40,7 @@ const Enhance = () => {
         title="Steps to sharpen your image."
         listSteps={listSteps}
       />
-      <ListFeature />
+      <OurFeature />
       <DownloadMobilePhone />
     </div>
   );
