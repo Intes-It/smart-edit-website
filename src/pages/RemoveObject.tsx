@@ -9,7 +9,7 @@ import step3 from "../assets/remove-obj-step-3.png";
 import step4 from "../assets/step-final.png";
 import DownloadMobilePhone from "../components/DownloadMobilePhone";
 import ListBackground from "../components/ListBackground";
-import ListFeature from "../components/ListFeature";
+import OurFeature from "../components/OurFeature";
 import UploadImage from "../components/UploadImage";
 
 const RemoveObject = () => {
@@ -44,7 +44,7 @@ const RemoveObject = () => {
         title="Steps to remove unexpected object."
         listSteps={listSteps}
       />
-      <ListFeature />
+      <OurFeature />
       <DownloadMobilePhone />
     </div>
   );

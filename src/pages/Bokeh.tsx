@@ -5,7 +5,7 @@ import step3 from "../assets/step-final.png";
 import step1 from "../assets/steps_background_1.svg";
 import DownloadMobilePhone from "../components/DownloadMobilePhone";
 import ListBackground from "../components/ListBackground";
-import ListFeature from "../components/ListFeature";
+import OurFeature from "../components/OurFeature";
 import UploadImage from "../components/UploadImage";
 
 const Bokeh = () => {
@@ -32,7 +32,7 @@ const Bokeh = () => {
         typeUpload="bokeh"
       />
       <ListBackground title="Steps to blur background." listSteps={listSteps} />
-      <ListFeature />
+      <OurFeature />
       <DownloadMobilePhone />
     </div>
   );

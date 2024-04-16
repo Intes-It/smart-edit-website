@@ -8,7 +8,7 @@ import img4 from "../assets/remove-bg-option-4.png";
 import step3 from "../assets/step-final.png";
 import DownloadMobilePhone from "../components/DownloadMobilePhone";
 import ListBackground from "../components/ListBackground";
-import ListFeature from "../components/ListFeature";
+import OurFeature from "../components/OurFeature";
 import UploadImage from "../components/UploadImage";
 
 const AnimeAi = () => {
@@ -38,7 +38,7 @@ const AnimeAi = () => {
         title="Steps to become anime vesion."
         listSteps={listSteps}
       />
-      <ListFeature />
+      <OurFeature />
       <DownloadMobilePhone />
     </div>
   );

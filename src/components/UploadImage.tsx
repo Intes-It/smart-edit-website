@@ -57,7 +57,7 @@ const UploadImage = ({
             <Button className="text-white text-[20px] leading-[23.44px] w-[404px] h-[72px]  bg-[#A451E6] rounded-[40px]  ">
               <label
                 htmlFor="upload"
-                className="z-40 flex justify-center w-[404px] flex items-center h-[70px] cursor-pointer"
+                className="z-40 flex justify-center w-[404px]  items-center h-[70px] cursor-pointer"
               >
                 <img
                   src={IconUpload}

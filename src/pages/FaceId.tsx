@@ -9,7 +9,7 @@ import img4 from "../assets/remove-bg-option-4.png";
 import step4 from "../assets/step-final.png";
 import DownloadMobilePhone from "../components/DownloadMobilePhone";
 import ListBackground from "../components/ListBackground";
-import ListFeature from "../components/ListFeature";
+import OurFeature from "../components/OurFeature";
 import UploadImage from "../components/UploadImage";
 
 const FaceId = () => {
@@ -40,7 +40,7 @@ const FaceId = () => {
         typeUpload="face-id"
       />
       <ListBackground title="Steps to make ID photo." listSteps={listSteps} />
-      <ListFeature />
+      <OurFeature />
       <DownloadMobilePhone />
     </div>
   );

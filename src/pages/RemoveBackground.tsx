@@ -1,3 +1,4 @@
+import imageBanner from "../assets/banner-remove-bg.png";
 import option1 from "../assets/remove-bg-option-1.png";
 import option2 from "../assets/remove-bg-option-2.png";
 import option3 from "../assets/remove-bg-option-3.png";
@@ -7,10 +8,8 @@ import step2 from "../assets/remove-bg-step-2.png";
 import step3 from "../assets/step-final.png";
 import DownloadMobilePhone from "../components/DownloadMobilePhone";
 import ListBackground from "../components/ListBackground";
-import ListFeature from "../components/ListFeature";
+import OurFeature from "../components/OurFeature";
 import UploadImage from "../components/UploadImage";
-
-import imageBanner from "../assets/banner-remove-bg.png";
 
 const RemoveBackground = () => {
   const listSteps = [
@@ -37,7 +36,7 @@ const RemoveBackground = () => {
         typeUpload="bokeh"
       />
       <ListBackground title="" listSteps={listSteps} />
-      <ListFeature />
+      <OurFeature />
       <DownloadMobilePhone />
     </div>
   );

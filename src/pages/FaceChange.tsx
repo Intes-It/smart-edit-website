@@ -9,7 +9,7 @@ import step3 from "../assets/face-change-step-3.png";
 import step4 from "../assets/step-final.png";
 import DownloadMobilePhone from "../components/DownloadMobilePhone";
 import ListBackground from "../components/ListBackground";
-import ListFeature from "../components/ListFeature";
+import OurFeature from "../components/OurFeature";
 import UploadImage from "../components/UploadImage";
 
 const FaceChange = () => {
@@ -43,7 +43,7 @@ const FaceChange = () => {
         title="Steps to change image face."
         listSteps={listSteps}
       />
-      <ListFeature />
+      <OurFeature />
       <DownloadMobilePhone />
     </div>
   );
