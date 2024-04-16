@@ -6,6 +6,7 @@ import EditBokeh from "./pages/EditBokeh";
 import EditImage from "./pages/EditImage";
 import Enhance from "./pages/Enhance";
 import FaceChange from "./pages/FaceChange";
+import EditFaceChange from "./pages/EditFaceChange";
 import FaceId from "./pages/FaceId";
 import Notfound from "./pages/Notfound";
 import RemoveBackground from "./pages/RemoveBackground";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "face-change",
         element: <FaceChange />,
+      },
+      {
+        path: "face-change/edit",
+        element: <EditFaceChange />,
       },
       {
         path: "bokeh",
