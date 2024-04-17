@@ -4,14 +4,14 @@ import AnimeAi from "./pages/AnimeAi";
 import Bokeh from "./pages/Bokeh";
 import EditBokeh from "./pages/EditBokeh";
 import EditImage from "./pages/EditImage";
+import EditRemoveObject from "./pages/EditRemoveObject";
 import Enhance from "./pages/Enhance";
-import FaceChange from "./pages/FaceChange";
-import EditFaceChange from "./pages/EditFaceChange";
+import EditFaceChange from "./pages/Face-change/EditFaceChange";
+import FaceChange from "./pages/Face-change/FaceChange";
 import FaceId from "./pages/FaceId";
 import Notfound from "./pages/Notfound";
 import RemoveBackground from "./pages/RemoveBackground";
 import RemoveObject from "./pages/RemoveObject";
-import EditRemoveObject from "./pages/EditRemoveObject";
 
 const router = createBrowserRouter([
   {

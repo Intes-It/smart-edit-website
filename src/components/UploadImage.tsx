@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import IconUpload from "../assets/picture_upload.svg";
 import { useImageContext } from "../contexts/imageContext";
 import { UploadImageProps } from "../types";
@@ -8,6 +8,7 @@ const UploadImage = ({
   optionsImage,
   title,
   imageBanner,
+  typeUpload,
 }: UploadImageProps) => {
   const { setImage } = useImageContext();
 
@@ -55,19 +56,23 @@ const UploadImage = ({
             onDrop={handleDrop}
           >
             <Button className="text-white text-[20px] leading-[23.44px] w-[404px] h-[72px]  bg-[#A451E6] rounded-[40px]  ">
-              <label
-                htmlFor="upload"
-                className="z-40 flex justify-center w-[404px]  items-center h-[70px] cursor-pointer"
-              >
-                <img
-                  src={IconUpload}
-                  alt=" upload"
-                  width={"28px"}
-                  height={"28px"}
-                  className="mr-1"
-                />{" "}
-                Upload image
-              </label>
+              {typeUpload === "face-change" ? (
+                <Link to="edit">Start now</Link>
+              ) : (
+                <label
+                  htmlFor="upload"
+                  className="z-40 flex justify-center w-[404px]  items-center h-[70px] cursor-pointer"
+                >
+                  <img
+                    src={IconUpload}
+                    alt=" upload"
+                    width={"28px"}
+                    height={"28px"}
+                    className="mr-1"
+                  />{" "}
+                  Upload image
+                </label>
+              )}
             </Button>
             <input
               type="file"

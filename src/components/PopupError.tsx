@@ -1,6 +1,11 @@
 const PopupError = ({ title }: { title?: string }) => {
   return (
-    <div className="fixed translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2 ">
+    <div
+      className="fixed translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2 "
+      style={{
+        zIndex: 99999,
+      }}
+    >
       <div className="flex flex-col items-center justify-center py-2 px-3 rounded-lg bg-[#00000099]">
         <div className="text-white max-w-[120px] text-sm text-center">
           <svg

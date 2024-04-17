@@ -8,7 +8,7 @@ import ListFeature from "../components/ListFeature";
 const Header = () => {
   return (
     <header className="h-[68px] w-full sticky top-0 bg-white z-50">
-      <div className="flex items-center whitespace-nowrap justify-between font-semibold text-[#4B4B4B] h-full max-w-[1280px] mx-auto px-[10px] ">
+      <div className="flex items-center whitespace-nowrap justify-between font-semibold text-[#4B4B4B] h-full mx-auto md:px-5 px-3">
         <div className="flex items-center">
           <Link to="/">
             <img src={logo} alt="logo" className="cursor-pointer" />

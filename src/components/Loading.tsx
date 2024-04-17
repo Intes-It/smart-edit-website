@@ -2,7 +2,6 @@ import Lottie from "lottie-react";
 import loadingJson from "../assets/json/loading.json";
 
 const Loading = ({ title = "" }: { title?: string }) => {
-  console.log("title", title);
   return (
     <div
       className="fixed top-0 bottom-0 left-0 right-0 flex items-center justify-center w-screen h-screen "

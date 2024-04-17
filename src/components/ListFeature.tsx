@@ -167,8 +167,18 @@ const listFeature = [
     href: "enhance",
   },
 ];
-const ListFeature = ({ isHeader }: { isHeader?: boolean }) => {
+const ListFeature = ({
+  isHeader,
+  action,
+}: {
+  isHeader?: boolean;
+  action?: () => void;
+}) => {
   const { pathname } = useLocation();
+
+  const handleNext = () => {
+    if (action) action();
+  };
 
   return (
     <div
@@ -182,6 +192,7 @@ const ListFeature = ({ isHeader }: { isHeader?: boolean }) => {
             <Link
               to={item.href}
               key={index}
+              onClick={handleNext}
               className={twMerge(
                 "flex items-center gap-2 px-3 cursor-pointer first:rounded-t last:rounded-b py-3 transition duration-300 ease-in-out hover:text-primary hover:bg-[#FAF5FF]",
                 (pathname.includes(item.href) ||
@@ -199,6 +210,7 @@ const ListFeature = ({ isHeader }: { isHeader?: boolean }) => {
               <Link
                 to={`/${item.href}/edit`}
                 key={index}
+                onClick={handleNext}
                 className={twMerge(
                   "flex items-center gap-2 px-3 cursor-pointer first:rounded-t last:rounded-b py-3 transition duration-300 ease-in-out hover:text-primary hover:bg-[#FAF5FF]",
                   (pathname.includes(item.href) ||

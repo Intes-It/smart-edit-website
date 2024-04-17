@@ -17,7 +17,9 @@ const EditImage = () => {
 
   const [image, setImage] = useState<File | null | any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [imageRes, setImageRes] = useState<string | null>(null);
+  const [imageRes, setImageRes] = useState<string | null>(
+    typeof imageContext.image === "string" ? imageContext.image : null
+  );
   const [isError, setIsError] = useState<boolean>(false);
   const [isShowFeature, setIsShowFeature] = useState<boolean>(false);
 
@@ -33,6 +35,7 @@ const EditImage = () => {
       setImage(uploadedFile);
       imageRes && setImageRes(null);
       handleRemoveBg(uploadedFile as File);
+      imageContext.setImage(uploadedFile as File);
     }
   };
 
@@ -59,6 +62,7 @@ const EditImage = () => {
       setImage(droppedFile);
       imageRes && setImageRes(null);
       handleRemoveBg(droppedFile as File);
+      imageContext.setImage(droppedFile as File);
     }
   };
 
@@ -115,6 +119,7 @@ const EditImage = () => {
         type="file"
         name="upload"
         onChange={handleUploadImage}
+        multiple={false}
         id="upload"
         className="hidden"
         accept="image/png, image/jpeg"
@@ -161,8 +166,6 @@ const EditImage = () => {
             }
             alt=" image remove background"
             className="w-[1040px] h-[500px] object-contain mx-auto"
-            width={"100%"}
-            height={"100%"}
           />
         </div>
 
@@ -174,7 +177,7 @@ const EditImage = () => {
                 isShowFeature && "visible opacity-100"
               )}
             >
-              <ListFeature />
+              <ListFeature action={() => imageContext.setImage(imageRes)} />
             </div>
             <Button
               className="flex flex-row w-[140px] bg-white cursor-pointer h-10 pl-4 pr-2 py-2.5 items-center rounded-[4px] mr-6"

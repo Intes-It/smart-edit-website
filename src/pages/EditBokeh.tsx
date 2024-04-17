@@ -1,13 +1,13 @@
 import { Button, Slider } from "@mantine/core";
+import { useState } from "react";
+import ArrowRight from "../assets/arrow-right-outline.png";
+import iconDownload from "../assets/icon/icon-download.svg";
 import IconUploadBlack from "../assets/icon_upload_black.svg";
 import imageBokehEdit from "../assets/image-bokeh-edit.png";
-import iconDownload from "../assets/icon/icon-download.svg";
 
-import ArrowRight from "../assets/arrow-right-outline.png";
-import { useState } from "react";
 const EditImage = () => {
-  const [value1, setValue1] = useState(0);
-  const [value2, setValue2] = useState(0);
+  const [horizontal, setHorizontal] = useState(0);
+  const [vertical, setVertical] = useState(0);
   return (
     <div className="bg-white px-[200px] pt-10 pb-[118px]">
       <div
@@ -34,7 +34,7 @@ const EditImage = () => {
         </div>
       </div>
       <div
-        className="mt-8 flex flex-row"
+        className="flex flex-row mt-8"
         style={{
           boxShadow: "0px 2px 4px 0px #00000026",
         }}
@@ -49,36 +49,36 @@ const EditImage = () => {
         </div>
         <div
           style={{ borderLeft: "1px solid #F1F0F0" }}
-          className="w-1/5 flex flex-col items-center justify-between"
+          className="flex flex-col items-center justify-between w-1/5"
         >
           <div>
             <div className="text-[14px] text-[#424242] font-medium mr-auto ml-3">
               Horizontal
             </div>
             <Slider
-              value={value1}
-              onChange={setValue1}
+              value={horizontal}
+              onChange={setHorizontal}
               className="w-[276px] h-[24px] mt-2 "
             />
             <div
               className="ml-auto mt-1 w-[60px] h-[30px] bg-white text-black text-[14px] font-normal flex justify-center items-center rounded"
               style={{ border: "1px solid #DBDADA" }}
             >
-              {value1}%
+              {horizontal}%
             </div>
             <div className="text-[14px] text-[#424242] font-medium mr-auto ml-3">
               Vertical
             </div>
             <Slider
-              value={value2}
-              onChange={setValue2}
+              value={vertical}
+              onChange={setVertical}
               className="w-[276px] h-[24px] mt-2 "
             />
             <div
               className="ml-auto mt-1 w-[60px] h-[30px] bg-white text-black text-[14px] font-normal flex justify-center items-center rounded"
               style={{ border: "1px solid #DBDADA" }}
             >
-              {value2}%
+              {vertical}%
             </div>
           </div>
           <div>
