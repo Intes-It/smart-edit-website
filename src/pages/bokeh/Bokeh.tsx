@@ -1,12 +1,12 @@
-import step2 from "../assets/bokeh-step-2.png";
-import img1 from "../assets/imageUser.png";
-import banner from "../assets/picture_before_after.svg";
-import step3 from "../assets/step-final.png";
-import step1 from "../assets/steps_background_1.svg";
-import DownloadMobilePhone from "../components/DownloadMobilePhone";
-import ListBackground from "../components/ListBackground";
-import OurFeature from "../components/OurFeature";
-import UploadImage from "../components/UploadImage";
+import step2 from "../../assets/bokeh-step-2.png";
+import img1 from "../../assets/imageUser.png";
+import banner from "../../assets/picture_before_after.svg";
+import step3 from "../../assets/step-final.png";
+import step1 from "../../assets/steps_background_1.svg";
+import DownloadMobilePhone from "../../components/DownloadMobilePhone";
+import ListBackground from "../../components/ListBackground";
+import OurFeature from "../../components/OurFeature";
+import UploadImage from "../../components/UploadImage";
 
 const Bokeh = () => {
   const listSteps = [

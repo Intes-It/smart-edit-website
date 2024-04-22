@@ -7,7 +7,12 @@ import ListFeature from "../components/ListFeature";
 
 const Header = () => {
   return (
-    <header className="h-[68px] w-full sticky top-0 bg-white z-50">
+    <header
+      className="h-[68px] w-full sticky top-0 bg-white z-50"
+      style={{
+        boxShadow: "0px 2px 4px 0px #0000001A",
+      }}
+    >
       <div className="flex items-center whitespace-nowrap justify-between font-semibold text-[#4B4B4B] h-full mx-auto md:px-5 px-3">
         <div className="flex items-center">
           <Link to="/">

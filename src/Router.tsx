@@ -1,16 +1,17 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Wrapper from "./layout/Wrapper";
-import AnimeAi from "./pages/AnimeAi";
-import Bokeh from "./pages/Bokeh";
-import EditBokeh from "./pages/EditBokeh";
-import EditImage from "./pages/EditImage";
+import AnimeAi from "./pages/anime-ai/AnimeAi";
+import EditAnimeAi from "./pages/anime-ai/EditAnimeAi";
+import Bokeh from "./pages/bokeh/Bokeh";
+import EditBokeh from "./pages/bokeh/EditBokeh";
 import EditRemoveObject from "./pages/EditRemoveObject";
-import Enhance from "./pages/Enhance";
-import EditFaceChange from "./pages/Face-change/EditFaceChange";
-import FaceChange from "./pages/Face-change/FaceChange";
-import FaceId from "./pages/FaceId";
+import Enhance from "./pages/enhance/Enhance";
+import EditFaceChange from "./pages/face-change/EditFaceChange";
+import FaceChange from "./pages/face-change/FaceChange";
+import FaceId from "./pages/face-id/FaceId";
 import Notfound from "./pages/Notfound";
-import RemoveBackground from "./pages/RemoveBackground";
+import EditImage from "./pages/remove-background/EditImage";
+import RemoveBackground from "./pages/remove-background/RemoveBackground";
 import RemoveObject from "./pages/RemoveObject";
 
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "anime-ai",
         element: <AnimeAi />,
+      },
+      {
+        path: "anime-ai/edit",
+        element: <EditAnimeAi />,
       },
       {
         path: "face-id",

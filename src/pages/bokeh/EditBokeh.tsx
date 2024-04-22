@@ -1,9 +1,9 @@
 import { Button, Slider } from "@mantine/core";
 import { useState } from "react";
-import ArrowRight from "../assets/arrow-right-outline.png";
-import iconDownload from "../assets/icon/icon-download.svg";
-import IconUploadBlack from "../assets/icon_upload_black.svg";
-import imageBokehEdit from "../assets/image-bokeh-edit.png";
+import ArrowRight from "../../assets/arrow-right-outline.png";
+import iconDownload from "../../assets/icon/icon-download.svg";
+import IconUploadBlack from "../../assets/icon_upload_black.svg";
+import imageBokehEdit from "../../assets/image-bokeh-edit.png";
 
 const EditImage = () => {
   const [horizontal, setHorizontal] = useState(0);

@@ -1,17 +1,17 @@
-import banner from "../assets/banner-enhance.png";
-import img2 from "../assets/enhance-option-2.png";
-import img3 from "../assets/enhance-option-3.png";
-import img4 from "../assets/enhance-option-4.png";
-import step1 from "../assets/enhance-step-1.png";
+import banner from "../../assets/banner-enhance.png";
+import img2 from "../../assets/enhance-option-2.png";
+import img3 from "../../assets/enhance-option-3.png";
+import img4 from "../../assets/enhance-option-4.png";
+import step1 from "../../assets/enhance-step-1.png";
 import {
   default as img1,
   default as step2,
-} from "../assets/enhance-step-2.png";
-import step3 from "../assets/step-final.png";
-import DownloadMobilePhone from "../components/DownloadMobilePhone";
-import ListBackground from "../components/ListBackground";
-import OurFeature from "../components/OurFeature";
-import UploadImage from "../components/UploadImage";
+} from "../../assets/enhance-step-2.png";
+import step3 from "../../assets/step-final.png";
+import DownloadMobilePhone from "../../components/DownloadMobilePhone";
+import ListBackground from "../../components/ListBackground";
+import OurFeature from "../../components/OurFeature";
+import UploadImage from "../../components/UploadImage";
 
 const Enhance = () => {
   const listSteps = [

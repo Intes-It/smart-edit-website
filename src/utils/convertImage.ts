@@ -49,3 +49,18 @@ export function base64ToFile(base64Data: string, filename: string): any {
     // throw error;
   }
 }
+
+export function getImageDimensions(
+  imageFile: File
+): Promise<{ width: number; height: number }> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({ width: img.width, height: img.height });
+    };
+    img.onerror = (error) => {
+      reject(error);
+    };
+    img.src = URL.createObjectURL(imageFile);
+  });
+}

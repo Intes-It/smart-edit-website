@@ -3,14 +3,14 @@ import { useClickOutside } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import axiosClient from "../api/AxiosClient";
-import ArrowRight from "../assets/arrow-right-outline.png";
-import IconUploadBlack from "../assets/icon_upload_black.svg";
-import ListFeature from "../components/ListFeature";
-import Loading from "../components/Loading";
-import PopupError from "../components/PopupError";
-import { useImageContext } from "../contexts/imageContext";
-import { compressImage } from "../utils/comressImage";
+import axiosClient from "../../api/AxiosClient";
+import ArrowRight from "../../assets/arrow-right-outline.png";
+import IconUploadBlack from "../../assets/icon_upload_black.svg";
+import ListFeature from "../../components/ListFeature";
+import Loading from "../../components/Loading";
+import PopupError from "../../components/PopupError";
+import { useImageContext } from "../../contexts/imageContext";
+import { compressImage } from "../../utils/comressImage";
 
 const EditImage = () => {
   const imageContext = useImageContext();
