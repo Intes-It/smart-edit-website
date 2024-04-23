@@ -2,7 +2,6 @@ import manualIcon from "../assets/icon/manual.svg";
 import manualActiveIcon from "../assets/icon/manual-active.svg";
 import autoIcon from "../assets/icon/auto.svg";
 import autoActiveIcon from "../assets/icon/auto-active.svg";
-import remove_object_ex from "../assets/remove_object_ex.png";
 import IconTurnLeft from "../assets/icon-turn-left.svg";
 import IconTurnLeftActive from "../assets/icon-turn-left-active.svg";
 import IconTurnRight from "../assets/icon-turn-right.svg";
@@ -13,15 +12,13 @@ import backIcon from "../assets/icon/back-icon.svg";
 import checkIcon from "../assets/icon/check-icon.svg";
 import iconMinus from "../assets/icon/icon-minus.svg";
 import iconPlus from "../assets/icon/icon-plus.svg";
-import person1 from "../assets/picture-person1.png";
-import object1 from "../assets/picture-object1.png";
 import paintBrush from "../assets/icon/paint-brush.svg";
 import eraser from "../assets/icon/eraser.svg";
 import paintBrushActive from "../assets/icon/paint-brush-active.svg";
 import eraserActive from "../assets/icon/erase-active.svg";
 import magicWand from "../assets/icon/magic-wand.svg";
 import { Button, Checkbox, Slider } from "@mantine/core";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useImageContext } from "../contexts/imageContext";
 import Loading from "../components/Loading";
 import axiosClient from "../api/AxiosClient";
@@ -31,14 +28,16 @@ import mergeImages from "merge-images";
 import { twMerge } from "tailwind-merge";
 import ListFeature from "../components/ListFeature";
 import { useClickOutside } from "@mantine/hooks";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const EditRemoveObject = () => {
   const navigate = useNavigate();
+
   const imageContext = useImageContext();
   const [isShowFeature, setIsShowFeature] = useState<boolean>(false);
   const featureRef = useClickOutside(() => setIsShowFeature(false));
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
   const [imageRes, setImageRes] = useState<string>("");
   const [penSize, setPenSize] = useState<number>(0);
   const [selectPerson, setSelectPerson] = useState(1);
@@ -48,6 +47,8 @@ const EditRemoveObject = () => {
   const [listObjImage, setlistObjImage] = useState<string[]>([]);
   const [listPerson, setlistPerson] = useState<number[]>([]);
   const [listObj, setlistObj] = useState<number[]>([]);
+  // check move
+  const [checkMove, setCheckMove] = useState<boolean>(false);
 
   const [startImage, setStartImage] = useState(imageContext.image);
 
@@ -162,7 +163,7 @@ const EditRemoveObject = () => {
     }
   }, [startImage]);
   useEffect(() => {
-    let timeOut = null;
+    let timeOut = null as any;
     if (isError) {
       timeOut = setTimeout(() => {
         setIsError(false);
@@ -360,7 +361,7 @@ const EditRemoveObject = () => {
       const context = canvas.getContext("2d");
       if (context) {
         const { offsetX, offsetY } = event.nativeEvent;
-        context.strokeStyle = "rgba(255, 0, 0, 0.01)";
+        context.strokeStyle = "rgba(255, 0, 0, 0.6)";
         context.beginPath();
         context.moveTo(offsetX, offsetY);
         setCtx(context);
@@ -403,6 +404,7 @@ const EditRemoveObject = () => {
   const handleSliderChange = (value: number) => {
     setPenSize(value);
   };
+
   return (
     <div className="flex flex-row">
       <div
@@ -584,9 +586,11 @@ const EditRemoveObject = () => {
                 onClick={() => {
                   if (manualType === 1) {
                     setManualType(0);
+                    setCheckMove(false);
                   } else {
                     setManualType(1);
                     setToDraw();
+                    setCheckMove(true);
                   }
                 }}
               >
@@ -607,9 +611,11 @@ const EditRemoveObject = () => {
                 onClick={() => {
                   if (manualType === 2) {
                     setManualType(0);
+                    setCheckMove(false);
                   } else {
                     setManualType(2);
                     setToErase();
+                    setCheckMove(true);
                   }
                 }}
               >
@@ -638,191 +644,217 @@ const EditRemoveObject = () => {
           </div>
         )
       )}
+      <TransformWrapper initialScale={1} disabled={checkMove}>
+        {({ zoomIn, zoomOut, resetTransform }) => (
+          <div className="bg-[#F8F8F8] flex w-full h-fit flex-col">
+            {isLoading && (
+              <Loading title="Working on your photo. Please wait" />
+            )}
+            {isError && <PopupError title="Can not upload image" />}
+            <div className="w-3/5 mx-auto">
+              <div className="flex flex-row">
+                <TransformComponent>
+                  <canvas
+                    id="mycanvas"
+                    style={{
+                      backgroundImage: `URL(${
+                        imageRes
+                          ? imageRes
+                          : startImage
+                          ? URL.createObjectURL(startImage as File)
+                          : ""
+                      })`,
+                      backgroundSize: "100%",
+                      backgroundRepeat: "no-repeat",
+                      display: isHovered ? "none" : "block",
+                    }}
+                    onMouseDown={startDrawing}
+                    onMouseMove={draw}
+                    onMouseUp={finishDrawing}
+                    onMouseOut={finishDrawing}
+                    className="mt-10  bg-cover bg-no-repeat"
+                  ></canvas>
+                </TransformComponent>
 
-      <div className="bg-[#F8F8F8] flex w-full h-fit flex-col">
-        {isLoading && <Loading title="Working on your photo. Please wait" />}
-        {isError && <PopupError title="Can not upload image" />}
-        <div className="w-3/5 mx-auto">
-          <div className="flex flex-row">
-            <canvas
-              id="mycanvas"
-              style={{
-                backgroundImage: `URL(${
-                  imageRes
-                    ? imageRes
-                    : startImage
-                    ? URL.createObjectURL(startImage as File)
-                    : ""
-                })`,
-                display: isHovered ? "none" : "block",
-              }}
-              onMouseDown={startDrawing}
-              onMouseMove={draw}
-              onMouseUp={finishDrawing}
-              onMouseOut={finishDrawing}
-              className="mt-10  bg-cover bg-no-repeat"
-            ></canvas>
-            <img
-              src={URL.createObjectURL(imageContext.image as File)}
-              alt="remove_object_ex"
-              style={{
-                display: isHovered ? "block" : "none",
-              }}
-              className="w-[auto] h-[auto] mt-10"
-              width={"100%"}
-              height={"100%"}
-            />
-            <div>
-              <img
-                onMouseDown={() => handleHover(true)}
-                onMouseUp={() => handleHover(false)}
-                src={checkIcon}
-                alt="check-icon"
-                width={"40px"}
-                className="h-[40px] mt-7 ml-28"
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-          </div>
-          {selectActive !== 0 ? (
-            <div className="flex justify-center pt-[146px] pb-[46px]">
-              <Button
-                className="text-white text-[20px] leading-[23.44px] w-[260px] h-[48px]   rounded-[40px]   "
-                style={{
-                  background:
-                    "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
-                }}
-                onClick={() => {
-                  removeOBJRem();
-                  handleSliderChange(0);
-                }}
-              >
                 <img
-                  src={magicWand}
-                  alt=" upload"
-                  width={"24px"}
-                  height={"24px"}
-                  className="mr-1"
-                />{" "}
-                Delete
-              </Button>
-            </div>
-          ) : (
-            <div className="pb-[240px]"></div>
-          )}
-        </div>
-        <div className=" mb-[118px] flex-row flex justify-between ml-8 mr-[80px]">
-          <div className="flex flex-row gap-2">
-            <div className="flex-col flex ">
-              <img
-                src={backupcurrent === 0 ? IconTurnLeft : IconTurnLeftActive}
-                alt="icon-turn-left"
-                onClick={() => handelBackAndNext(false)}
-                style={{
-                  cursor: backupcurrent === 0 ? "not-allowed" : "pointer",
-                }}
-              />
-              <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
-                {backupcurrent}
-              </div>
-            </div>
-
-            <div className="flex-col flex ">
-              <img
-                src={
-                  backup.length - backupcurrent - 1 === 0
-                    ? IconTurnRight
-                    : IconTurnRightActive
-                }
-                alt="icon-turn-right"
-                onClick={() => handelBackAndNext(true)}
-                style={{
-                  cursor:
-                    backup.length - backupcurrent - 1 === 0
-                      ? "not-allowed"
-                      : "pointer",
-                }}
-              />
-              <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
-                {backup.length - backupcurrent - 1}
-              </div>
-            </div>
-            <div>
-              <img
-                src={backIcon}
-                alt="back-icon"
-                width={"40px"}
-                height={"40px"}
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setStartImage(imageContext.image);
-                  setBackup([imageContext.image as File]);
-                  setBackupcurrent(0);
-                  setSelectActive(0);
-                }}
-              />
-            </div>
-
-            <div className=" ml-[60px] flex flex-row gap-2">
-              <div>
-                <img src={iconMinus} alt="icon-minus" />
-              </div>
-              <Slider
-                value={value}
-                onChange={setValue}
-                className="w-[200px] h-[24px] mt-1"
-              />
-              <div>
-                <img src={iconPlus} alt="icon-plus" />
-              </div>
-              <div
-                className="ml-6 w-[60px] h-[30px] bg-white text-black text-[14px] font-normal flex justify-center items-center rounded"
-                style={{ border: "1px solid #DBDADA" }}
-              >
-                {value}%
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-row">
-            <div className="relative ml-auto" ref={featureRef}>
-              <div
-                className={twMerge(
-                  "absolute bottom-0 -left-64 invisible transition-all duration-300 ease-in-out opacity-0",
-                  isShowFeature && "visible opacity-100"
-                )}
-              >
-                <ListFeature />
-              </div>
-              <Button
-                className="flex flex-row w-[140px] bg-white cursor-pointer h-10 pl-4 pr-2 py-2.5 items-center rounded-[4px] mr-6"
-                style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
-                onClick={() => setIsShowFeature(!isShowFeature)}
-              >
-                <p className="text-black text-[14px] font-medium">
-                  Continue Edit
-                </p>{" "}
-                <img
-                  src={ArrowRight}
-                  alt="arrow-right-outline"
-                  className="ml-2.5"
+                  src={URL.createObjectURL(imageContext.image as File)}
+                  alt="remove_object_ex"
+                  style={{
+                    display: isHovered ? "block" : "none",
+                  }}
+                  className="w-[auto] h-[auto] mt-10"
+                  width={"100%"}
+                  height={"100%"}
                 />
-              </Button>
+                <div className=" flex flex-col ">
+                  <div>
+                    <img
+                      onMouseDown={() => handleHover(true)}
+                      onMouseUp={() => handleHover(false)}
+                      src={checkIcon}
+                      alt="check-icon"
+                      width={"40px"}
+                      className="h-[40px] mt-7 ml-28"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                  <div>
+                    <img
+                      src={iconMinus}
+                      alt="icon-minus"
+                      onClick={() => zoomOut()}
+                      width={"40px"}
+                      height={"40px"}
+                      className=" mt-2 ml-28"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+
+                  <div>
+                    <img
+                      src={iconPlus}
+                      alt="icon-plus"
+                      onClick={() => zoomIn()}
+                      className="h-[40px] mt-2 ml-28"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                </div>
+              </div>
+              {selectActive !== 0 ? (
+                <div className="flex justify-center pt-[146px] pb-[46px]">
+                  <Button
+                    className="text-white text-[20px] leading-[23.44px] w-[260px] h-[48px]   rounded-[40px]   "
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
+                    }}
+                    onClick={() => {
+                      removeOBJRem();
+                      handleSliderChange(0);
+                    }}
+                  >
+                    <img
+                      src={magicWand}
+                      alt=" upload"
+                      width={"24px"}
+                      height={"24px"}
+                      className="mr-1"
+                    />{" "}
+                    Delete
+                  </Button>
+                </div>
+              ) : (
+                <div className="pb-[240px]"></div>
+              )}
             </div>
-            <div
-              className="flex flex-row w-[120px] h-10 px-2 py-2.5 items-center rounded-[4px]"
-              style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
-            >
-              <img
-                src={AddOutline}
-                alt="arrow-right-outline"
-                className="mr-1"
-              />
-              <p className="text-black text-[14px] font-medium">New Image</p>{" "}
+            <div className=" mb-[118px] flex-row flex justify-between ml-8 mr-[80px]">
+              <div className="flex flex-row gap-2">
+                <div className="flex-col flex ">
+                  <img
+                    src={
+                      backupcurrent === 0 ? IconTurnLeft : IconTurnLeftActive
+                    }
+                    alt="icon-turn-left"
+                    onClick={() => handelBackAndNext(false)}
+                    style={{
+                      cursor: backupcurrent === 0 ? "not-allowed" : "pointer",
+                    }}
+                  />
+                  <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
+                    {backupcurrent}
+                  </div>
+                </div>
+
+                <div className="flex-col flex ">
+                  <img
+                    src={
+                      backup.length - backupcurrent - 1 === 0
+                        ? IconTurnRight
+                        : IconTurnRightActive
+                    }
+                    alt="icon-turn-right"
+                    onClick={() => handelBackAndNext(true)}
+                    style={{
+                      cursor:
+                        backup.length - backupcurrent - 1 === 0
+                          ? "not-allowed"
+                          : "pointer",
+                    }}
+                  />
+                  <div className="text-[14px] text-[#A1A1A1] font-bold mx-auto mt-0.5">
+                    {backup.length - backupcurrent - 1}
+                  </div>
+                </div>
+                <div>
+                  <img
+                    src={backIcon}
+                    alt="back-icon"
+                    width={"40px"}
+                    height={"40px"}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setStartImage(imageContext.image);
+                      setBackup([imageContext.image as File]);
+                      setBackupcurrent(0);
+                      setSelectActive(0);
+                      resetTransform();
+                      setManualType(0);
+                      const canvas = document.getElementById(
+                        "mycanvas"
+                      ) as HTMLCanvasElement;
+                      const context = canvas.getContext("2d");
+                      if (context) {
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-row">
+                <div className="relative ml-auto" ref={featureRef}>
+                  <div
+                    className={twMerge(
+                      "absolute bottom-0 -left-64 invisible transition-all duration-300 ease-in-out opacity-0",
+                      isShowFeature && "visible opacity-100"
+                    )}
+                  >
+                    <ListFeature />
+                  </div>
+                  <Button
+                    className="flex flex-row w-[140px] bg-white cursor-pointer h-10 pl-4 pr-2 py-2.5 items-center rounded-[4px] mr-6"
+                    style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
+                    onClick={() => setIsShowFeature(!isShowFeature)}
+                  >
+                    <p className="text-black text-[14px] font-medium">
+                      Continue Edit
+                    </p>{" "}
+                    <img
+                      src={ArrowRight}
+                      alt="arrow-right-outline"
+                      className="ml-2.5"
+                    />
+                  </Button>
+                </div>
+                <div
+                  className="flex flex-row w-[120px] h-10 px-2 py-2.5 items-center rounded-[4px]"
+                  style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
+                >
+                  <img
+                    src={AddOutline}
+                    alt="arrow-right-outline"
+                    className="mr-1"
+                  />
+                  <p className="text-black text-[14px] font-medium">
+                    New Image
+                  </p>{" "}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
+      </TransformWrapper>
     </div>
   );
 };
