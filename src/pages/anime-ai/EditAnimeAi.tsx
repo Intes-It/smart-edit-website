@@ -190,13 +190,13 @@ const EditAnimeAi = () => {
   }, []);
 
   useEffect(() => {
-    let timeOut = null;
+    let timeOut = null as any;
     if (isError) {
       timeOut = setTimeout(() => {
         setIsError(false);
       }, 3000);
     }
-    return () => clearTimeout(timeOut as any);
+    return () => clearTimeout(timeOut);
   }, [isError]);
 
   return (

@@ -163,7 +163,7 @@ const EditRemoveObject = () => {
     }
   }, [startImage]);
   useEffect(() => {
-    let timeOut = null;
+    let timeOut = null as any;
     if (isError) {
       timeOut = setTimeout(() => {
         setIsError(false);
