@@ -6,6 +6,7 @@ import Bokeh from "./pages/bokeh/Bokeh";
 import EditBokeh from "./pages/bokeh/EditBokeh";
 import EditRemoveObject from "./pages/remove-object/EditRemoveObject";
 import Enhance from "./pages/enhance/Enhance";
+import EditEchance from "./pages/enhance/EditEchance";
 import EditFaceChange from "./pages/face-change/EditFaceChange";
 import FaceChange from "./pages/face-change/FaceChange";
 import FaceId from "./pages/face-id/FaceId";
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "enhance",
         element: <Enhance />,
+      },
+      {
+        path: "enhance/edit",
+        element: <EditEchance />,
       },
       {
         path: "*",
