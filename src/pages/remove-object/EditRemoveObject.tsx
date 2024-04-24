@@ -147,7 +147,7 @@ const EditRemoveObject = () => {
     }
   };
   useEffect(() => {
-    if (startImage) {
+    if (startImage && imageContext.image) {
       detectObj();
       const image = new Image();
       image.src = URL.createObjectURL(startImage as File);
@@ -158,7 +158,7 @@ const EditRemoveObject = () => {
           canvas.height = image.height;
         }
       };
-    } else if (!startImage) {
+    } else if (!startImage && !imageContext.image) {
       navigate("/");
     }
   }, [startImage]);
@@ -677,7 +677,11 @@ const EditRemoveObject = () => {
                 </TransformComponent>
 
                 <img
-                  src={URL.createObjectURL(imageContext.image as File)}
+                  src={
+                    imageContext.image
+                      ? URL.createObjectURL(imageContext.image as File)
+                      : ""
+                  }
                   alt="remove_object_ex"
                   style={{
                     display: isHovered ? "block" : "none",
