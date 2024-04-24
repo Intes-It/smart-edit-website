@@ -11,7 +11,7 @@ import FaceId from "./pages/face-id/FaceId";
 import EditFaceChange from "./pages/faceChange/EditFaceChange";
 import FaceChange from "./pages/faceChange/FaceChange";
 import EditHotTrend from "./pages/hot-trend/EditHotTrend";
-import HotTrend from "./pages/hot-trend/Hottrend";
+import HotTrend from "./pages/hot-trend/HotTrend";
 import Notfound from "./pages/Notfound";
 import EditImage from "./pages/remove-background/EditImage";
 import RemoveBackground from "./pages/remove-background/RemoveBackground";
