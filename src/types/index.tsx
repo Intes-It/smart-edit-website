@@ -5,7 +5,8 @@ type typeUpload =
   | "face-change"
   | "anime-ai"
   | "face-id"
-  | "enhance";
+  | "enhance"
+  | "hot-trend";
 
 export type UploadImageProps = {
   imageBanner: string;

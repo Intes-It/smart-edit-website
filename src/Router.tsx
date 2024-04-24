@@ -10,6 +10,8 @@ import EditFaceId from "./pages/face-id/EditFaceId";
 import FaceId from "./pages/face-id/FaceId";
 import EditFaceChange from "./pages/faceChange/EditFaceChange";
 import FaceChange from "./pages/faceChange/FaceChange";
+import EditHotTrend from "./pages/hot-trend/EditHotTrend";
+import HotTrend from "./pages/hot-trend/Hottrend";
 import Notfound from "./pages/Notfound";
 import EditImage from "./pages/remove-background/EditImage";
 import RemoveBackground from "./pages/remove-background/RemoveBackground";
@@ -80,6 +82,14 @@ const router = createBrowserRouter([
       {
         path: "enhance/edit",
         element: <EditEchance />,
+      },
+      {
+        path: "hot-trend",
+        element: <HotTrend />,
+      },
+      {
+        path: "hot-trend/edit",
+        element: <EditHotTrend />,
       },
       {
         path: "*",

@@ -49,15 +49,22 @@ const UploadImage = ({
     <div className="bg-[#F5EBFF] py-[97px] flex ">
       <div className="flex flex-wrap max-w-[1280px] w-full justify-between mx-auto px-[10px]">
         <div className="flex flex-col w-3/5 max-w-[584px]">
-          <div className="font-bold text-[40px] mb-[46px]">{title}</div>
+          <div className="font-bold flex-1 text-[40px] mb-12 leading-[47px]">
+            {title}
+          </div>
           <div
-            className="bg-white pt-[47px] pb-[40px] flex flex-col rounded-[20px] items-center"
+            className="bg-white py-10 flex flex-col rounded-[20px] items-center"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           >
             <Button className="text-white text-[20px] leading-[23.44px] w-[404px] h-[72px]  bg-[#A451E6] rounded-[40px]  ">
               {typeUpload === "face-change" ? (
-                <Link to="edit">Start now</Link>
+                <Link
+                  to="edit"
+                  className="w-[404px] h-[72px] flex justify-center items-center "
+                >
+                  Start now
+                </Link>
               ) : (
                 <label
                   htmlFor="upload"
@@ -82,7 +89,7 @@ const UploadImage = ({
               className="hidden"
               accept="image/png, image/jpeg"
             />
-            <div className="text-[20px] text-black font-medium mt-3 mb-8">
+            <div className="text-[20px] text-black font-medium mt-3 mb-6">
               Or drop your image here
             </div>
             <div className="text-[#4B4B4B] text-16px font-normal">
@@ -101,7 +108,11 @@ const UploadImage = ({
           </div>
         </div>
         <div>
-          <img src={imageBanner} alt=" before-after" />
+          <img
+            src={imageBanner}
+            className="w-[406px] h-full"
+            alt=" before-after"
+          />
         </div>
       </div>
     </div>
