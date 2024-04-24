@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import ArrowRight from "../../assets/arrow-right-outline.png";
 import iconDownload from "../../assets/icon/icon-download.svg";
 import IconUploadBlack from "../../assets/icon_upload_black.svg";
-import imageBokehEdit from "../../assets/image-bokeh-edit.png";
 import { compressImage } from "../../utils/comressImage";
 import { useImageContext } from "../../contexts/imageContext";
 import { useNavigate } from "react-router-dom";
