@@ -64,3 +64,24 @@ export function getImageDimensions(
     img.src = URL.createObjectURL(imageFile);
   });
 }
+
+export const handleDownload = async (imageRes: string | null) => {
+  if (!imageRes) return;
+  // Fetch the image data
+  const response = await fetch(`data:image/jpeg;base64,${imageRes}`);
+  const blob = await response.blob();
+
+  // Create a Blob object
+  const url = window.URL.createObjectURL(blob);
+
+  // Create a temporary anchor element
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "smart-edit";
+
+  // Trigger download
+  a.click();
+
+  // Clean up
+  window.URL.revokeObjectURL(url);
+};

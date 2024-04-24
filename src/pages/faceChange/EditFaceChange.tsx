@@ -20,7 +20,7 @@ import Loading from "../../components/Loading";
 import PopupError from "../../components/PopupError";
 import { useImageContext } from "../../contexts/imageContext";
 import { compressImage } from "../../utils/comressImage";
-import { imageUrlToFile } from "../../utils/convertImage";
+import { handleDownload, imageUrlToFile } from "../../utils/convertImage";
 
 const EditFaceChange = () => {
   const imageContext = useImageContext();
@@ -136,26 +136,6 @@ const EditFaceChange = () => {
       handleFaceChange(imageFace, url);
       if (opened) close();
     }
-  };
-
-  const handleDownload = async () => {
-    // Fetch the image data
-    const response = await fetch(`data:image/jpeg;base64,${imageRes}`);
-    const blob = await response.blob();
-
-    // Create a Blob object
-    const url = window.URL.createObjectURL(blob);
-
-    // Create a temporary anchor element
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "change-face";
-
-    // Trigger download
-    a.click();
-
-    // Clean up
-    window.URL.revokeObjectURL(url);
   };
 
   useEffect(() => {
@@ -344,24 +324,26 @@ const EditFaceChange = () => {
             </div>
             <div className="flex flex-col items-center justify-between mt-[40px]">
               <div>
-                <Button
-                  className="text-white text-[14px]  w-[140px] h-[40px] border-none rounded-[4px]  mb-4  "
-                  style={{
-                    background:
-                      "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
-                  }}
-                  onClick={handleDownload}
-                >
-                  <img
-                    loading="lazy"
-                    src={iconDownload}
-                    alt="icon-download"
-                    width={"20px"}
-                    height={"20px"}
-                    className="mr-1"
-                  />{" "}
-                  Download
-                </Button>
+                {imageRes && (
+                  <Button
+                    className="text-white text-[14px]  w-[140px] h-[40px] border-none rounded-[4px]  mb-4  "
+                    style={{
+                      background:
+                        "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
+                    }}
+                    onClick={() => handleDownload(imageRes)}
+                  >
+                    <img
+                      loading="lazy"
+                      src={iconDownload}
+                      alt="icon-download"
+                      width={"20px"}
+                      height={"20px"}
+                      className="mr-1"
+                    />{" "}
+                    Download
+                  </Button>
+                )}
                 <div className="relative ml-auto" ref={featureRef}>
                   <div
                     className={twMerge(
