@@ -10,6 +10,7 @@ import EditEchance from "./pages/enhance/EditEchance";
 import EditFaceChange from "./pages/face-change/EditFaceChange";
 import FaceChange from "./pages/face-change/FaceChange";
 import FaceId from "./pages/face-id/FaceId";
+import EditFaceId from "./pages/face-id/EditFaceId";
 import Notfound from "./pages/Notfound";
 import EditImage from "./pages/remove-background/EditImage";
 import RemoveBackground from "./pages/remove-background/RemoveBackground";
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "face-id",
         element: <FaceId />,
+      },
+      {
+        path: "face-id/edit",
+        element: <EditFaceId />,
       },
       {
         path: "enhance",
