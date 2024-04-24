@@ -1,6 +1,7 @@
 import { Button, Slider } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { ChangeEvent, DragEvent, useEffect, useState } from "react";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { twMerge } from "tailwind-merge";
 import axiosClient, { API_URL } from "../../api/AxiosClient";
 import ArrowRight from "../../assets/arrow-right-outline.png";
@@ -102,14 +103,6 @@ const EditAnimeAi = () => {
     }
   };
 
-  const handleZoomImage = (type: "zoomIn" | "zoomOut") => {
-    if (type === "zoomIn" && zoomValue < 100)
-      setZoomValue(zoomValue + 10 > 100 ? 100 : zoomValue + 10);
-    else if (zoomValue > 0) {
-      setZoomValue(zoomValue - 10 > 0 ? zoomValue - 10 : 0);
-    }
-  };
-
   const handleTransferImage = async (selected?: optionType, image?: File) => {
     // Early return if loading
     if (isLoading) return;
@@ -178,8 +171,10 @@ const EditAnimeAi = () => {
       typeof imageFile === "string"
         ? (url = imageFile)
         : (url = URL.createObjectURL(imageFile as File));
-    } else {
+    } else if (imageRes) {
       url = `data:image/jpeg;base64,${imageRes}`;
+    } else {
+      url = URL.createObjectURL(imageFile as File);
     }
 
     return url;
@@ -283,155 +278,182 @@ const EditAnimeAi = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#F8F8F8] flex-1">
-        <div className="flex flex-col h-full mt-10">
-          <div className="min-h-[375px] flex-1">
-            {(imageRes || imageFile) && (
-              <img
-                src={getUrlImage()}
-                alt="anime option selected"
-                className={twMerge("w-[375px] object-contain mx-auto")}
-                // style={{
-                //   transform: `translate3d(0px, 0px, 0px) scale(${
-                //     zoomValue / 100 + 1
-                //   });`,
-                // }}
-              />
-            )}
-          </div>
-          <div className="flex flex-row justify-between pb-24 float-end pl-14">
-            <div className="flex flex-row gap-2">
-              <Button
-                className="flex items-center justify-center w-10 h-10 bg-white rounded-full cursor-pointer"
-                style={{
-                  boxShadow: "0px 2px 4px 0px #00000026",
-                }}
-                onClick={handleRetry}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 3.99993V8.99993H4.582M4.582 8.99993C5.24585 7.35806 6.43568 5.98284 7.96503 5.08979C9.49438 4.19674 11.2768 3.83634 13.033 4.06507C14.7891 4.29379 16.4198 5.09872 17.6694 6.3537C18.919 7.60869 19.7168 9.24279 19.938 10.9999M4.582 8.99993H9M20 19.9999V14.9999H19.419M19.419 14.9999C18.7542 16.6408 17.564 18.015 16.0348 18.9072C14.5056 19.7995 12.7237 20.1594 10.9681 19.9308C9.21246 19.7022 7.5822 18.8978 6.33253 17.6437C5.08287 16.3895 4.28435 14.7564 4.062 12.9999M19.419 14.9999H15"
-                    stroke="#424242"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Button>
-
-              <Button
-                className="flex items-center justify-center w-10 h-10 bg-white rounded-full cursor-pointer"
-                style={{
-                  boxShadow: "0px 2px 4px 0px #00000026",
-                }}
-                onClick={() =>
-                  setImageShow(imageShow === "AFTER" ? "BEFORE" : "AFTER")
-                }
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8 21.8182H2.66667C1.93334 21.8182 1.30534 21.6044 0.782669 21.1767C0.260002 20.7491 -0.000886625 20.2356 2.26372e-06 19.6364V4.36364C2.26372e-06 3.76364 0.261336 3.24982 0.784002 2.82218C1.30667 2.39455 1.93422 2.18109 2.66667 2.18182H8V4.36364H2.66667V19.6364H8V21.8182ZM10.6667 24V0H13.3333V24H10.6667ZM21.3333 4.36364V2.18182C22.0667 2.18182 22.6947 2.39564 23.2173 2.82327C23.74 3.25091 24.0009 3.76436 24 4.36364H21.3333ZM21.3333 13.0909V10.9091H24V13.0909H21.3333ZM21.3333 21.8182V19.6364H24C24 20.2364 23.7387 20.7502 23.216 21.1778C22.6933 21.6055 22.0658 21.8189 21.3333 21.8182ZM21.3333 8.72727V6.54545H24V8.72727H21.3333ZM21.3333 17.4545V15.2727H24V17.4545H21.3333ZM16 21.8182V19.6364H18.6667V21.8182H16ZM16 4.36364V2.18182H18.6667V4.36364H16Z"
-                    fill="#424242"
-                  />
-                </svg>
-              </Button>
-              <div className="flex flex-row items-center gap-2 ml-8 ">
-                <Button
-                  className={twMerge(
-                    "p-0 bg-transparent text-[#DADADA]",
-                    zoomValue > 0 && "text-[#424242]"
-                  )}
-                  disabled={zoomValue === 0 || !imageFile}
-                  onClick={() => handleZoomImage("zoomOut")}
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M9 0.875C4.52 0.875 0.875 4.52 0.875 9C0.875 13.48 4.52 17.125 9 17.125C13.48 17.125 17.125 13.48 17.125 9C17.125 4.52 13.48 0.875 9 0.875ZM9 2.125C12.8044 2.125 15.875 5.19563 15.875 9C15.875 12.8044 12.8044 15.875 9 15.875C5.19563 15.875 2.125 12.8044 2.125 9C2.125 5.19563 5.19563 2.125 9 2.125ZM5.25 8.375V9.625H12.75V8.375H5.25Z"
-                      fill="currentColor"
+      <TransformWrapper
+        initialScale={1}
+        maxScale={2}
+        onTransformed={(e) => {
+          setZoomValue(Math.round(e.instance.transformState.scale * 100 - 100));
+        }}
+      >
+        {({ zoomIn, zoomOut, ...rest }) => (
+          <div className="bg-[#F8F8F8] flex-1">
+            <div className="flex flex-col h-full mt-10">
+              <div className="min-h-[650px]  flex-1 mx-auto">
+                <TransformComponent>
+                  {(imageRes || imageFile) && (
+                    <img
+                      src={getUrlImage()}
+                      alt="anime option selected"
+                      className="object-contain h-[650px] mx-auto "
                     />
-                  </svg>
-                </Button>
-                <Slider
-                  value={zoomValue}
-                  onChange={setZoomValue}
-                  disabled={!imageFile}
-                  className="w-[200px] h-[24px] mt-1"
-                />
-                <Button
-                  className={twMerge(
-                    "p-0 bg-transparent  text-[#424242]",
-                    (zoomValue === 100 || !imageFile) && "text-[#DADADA]"
                   )}
-                  disabled={zoomValue === 100 || !imageFile}
-                  onClick={() => handleZoomImage("zoomIn")}
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                </TransformComponent>
+              </div>
+              <div className="flex flex-row justify-between pb-24 float-end pl-14">
+                <div className="flex flex-row gap-2">
+                  <Button
+                    className="flex items-center justify-center w-10 h-10 bg-white rounded-full cursor-pointer"
+                    style={{
+                      boxShadow: "0px 2px 4px 0px #00000026",
+                      color: !imageRes ? "#DADADA" : "#424242",
+                    }}
+                    onClick={handleRetry}
+                    disabled={!imageRes}
                   >
-                    <path
-                      d="M9 0.0625C4.072 0.0625 0.0625 4.072 0.0625 9C0.0625 13.928 4.072 17.9375 9 17.9375C13.928 17.9375 17.9375 13.928 17.9375 9C17.9375 4.072 13.928 0.0625 9 0.0625ZM9 1.4375C13.1848 1.4375 16.5625 4.81519 16.5625 9C16.5625 13.1848 13.1848 16.5625 9 16.5625C4.81519 16.5625 1.4375 13.1848 1.4375 9C1.4375 4.81519 4.81519 1.4375 9 1.4375ZM8.3125 4.875V8.3125H4.875V9.6875H8.3125V13.125H9.6875V9.6875H13.125V8.3125H9.6875V4.875H8.3125Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </Button>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 3.99993V8.99993H4.582M4.582 8.99993C5.24585 7.35806 6.43568 5.98284 7.96503 5.08979C9.49438 4.19674 11.2768 3.83634 13.033 4.06507C14.7891 4.29379 16.4198 5.09872 17.6694 6.3537C18.919 7.60869 19.7168 9.24279 19.938 10.9999M4.582 8.99993H9M20 19.9999V14.9999H19.419M19.419 14.9999C18.7542 16.6408 17.564 18.015 16.0348 18.9072C14.5056 19.7995 12.7237 20.1594 10.9681 19.9308C9.21246 19.7022 7.5822 18.8978 6.33253 17.6437C5.08287 16.3895 4.28435 14.7564 4.062 12.9999M19.419 14.9999H15"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Button>
 
-                <div
-                  className="ml-6 w-[60px] h-[30px] bg-white text-black text-[14px] font-normal flex justify-center items-center rounded"
-                  style={{ border: "1px solid #DBDADA" }}
-                >
-                  {zoomValue}%
+                  <Button
+                    className="flex items-center justify-center w-10 h-10 bg-white rounded-full cursor-pointer"
+                    style={{
+                      boxShadow: "0px 2px 4px 0px #00000026",
+                      color: !imageRes ? "#DADADA" : "#424242",
+                    }}
+                    onClick={() => {
+                      setImageShow(imageShow === "AFTER" ? "BEFORE" : "AFTER");
+                    }}
+                    disabled={!imageRes}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 21.8182H2.66667C1.93334 21.8182 1.30534 21.6044 0.782669 21.1767C0.260002 20.7491 -0.000886625 20.2356 2.26372e-06 19.6364V4.36364C2.26372e-06 3.76364 0.261336 3.24982 0.784002 2.82218C1.30667 2.39455 1.93422 2.18109 2.66667 2.18182H8V4.36364H2.66667V19.6364H8V21.8182ZM10.6667 24V0H13.3333V24H10.6667ZM21.3333 4.36364V2.18182C22.0667 2.18182 22.6947 2.39564 23.2173 2.82327C23.74 3.25091 24.0009 3.76436 24 4.36364H21.3333ZM21.3333 13.0909V10.9091H24V13.0909H21.3333ZM21.3333 21.8182V19.6364H24C24 20.2364 23.7387 20.7502 23.216 21.1778C22.6933 21.6055 22.0658 21.8189 21.3333 21.8182ZM21.3333 8.72727V6.54545H24V8.72727H21.3333ZM21.3333 17.4545V15.2727H24V17.4545H21.3333ZM16 21.8182V19.6364H18.6667V21.8182H16ZM16 4.36364V2.18182H18.6667V4.36364H16Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </Button>
+                  <div className="flex flex-row items-center gap-2 ml-8 ">
+                    <Button
+                      className={twMerge(
+                        "p-0 bg-transparent text-[#DADADA]",
+                        zoomValue > 0 && "text-[#424242]"
+                      )}
+                      disabled={zoomValue === 0 || !imageFile}
+                      onClick={() => {
+                        zoomValue > 0 &&
+                          rest.centerView(
+                            (zoomValue - 25 < 0 ? 0 : zoomValue - 25) / 100 + 1
+                          );
+                      }}
+                    >
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 0.875C4.52 0.875 0.875 4.52 0.875 9C0.875 13.48 4.52 17.125 9 17.125C13.48 17.125 17.125 13.48 17.125 9C17.125 4.52 13.48 0.875 9 0.875ZM9 2.125C12.8044 2.125 15.875 5.19563 15.875 9C15.875 12.8044 12.8044 15.875 9 15.875C5.19563 15.875 2.125 12.8044 2.125 9C2.125 5.19563 5.19563 2.125 9 2.125ZM5.25 8.375V9.625H12.75V8.375H5.25Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </Button>
+                    <Slider
+                      value={zoomValue}
+                      onChange={(e) => {
+                        rest.centerView(e / 100 + 1);
+                      }}
+                      disabled={!imageFile}
+                      className="w-[200px] h-[24px] mt-1"
+                    />
+                    <Button
+                      className={twMerge(
+                        "p-0 bg-transparent  text-[#424242]",
+                        (zoomValue === 100 || !imageFile) && "text-[#DADADA]"
+                      )}
+                      disabled={zoomValue === 100 || !imageFile}
+                      onClick={() => {
+                        zoomValue < 100 &&
+                          rest.centerView(
+                            (zoomValue + 25 > 100 ? 100 : zoomValue + 25) /
+                              100 +
+                              1
+                          );
+                      }}
+                    >
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9 0.0625C4.072 0.0625 0.0625 4.072 0.0625 9C0.0625 13.928 4.072 17.9375 9 17.9375C13.928 17.9375 17.9375 13.928 17.9375 9C17.9375 4.072 13.928 0.0625 9 0.0625ZM9 1.4375C13.1848 1.4375 16.5625 4.81519 16.5625 9C16.5625 13.1848 13.1848 16.5625 9 16.5625C4.81519 16.5625 1.4375 13.1848 1.4375 9C1.4375 4.81519 4.81519 1.4375 9 1.4375ZM8.3125 4.875V8.3125H4.875V9.6875H8.3125V13.125H9.6875V9.6875H13.125V8.3125H9.6875V4.875H8.3125Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </Button>
+
+                    <div
+                      className="ml-6 w-[60px] h-[30px] bg-white text-black text-[14px] font-normal flex justify-center items-center rounded"
+                      style={{ border: "1px solid #DBDADA" }}
+                    >
+                      {zoomValue}%
+                    </div>
+                  </div>
+                </div>
+                <div className="relative ml-auto" ref={featureRef}>
+                  <div
+                    className={twMerge(
+                      "absolute bottom-0 -left-64 invisible transition-all duration-300 ease-in-out opacity-0",
+                      isShowFeature && "visible opacity-100"
+                    )}
+                  >
+                    <ListFeature
+                      action={() => imageContext.setImage(imageRes)}
+                    />
+                  </div>
+                  <Button
+                    className="flex flex-row w-[140px] bg-white cursor-pointer h-10 pl-4 pr-2 py-2.5 items-center rounded-[4px] mr-6"
+                    style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
+                    onClick={() => setIsShowFeature(!isShowFeature)}
+                  >
+                    <p className="text-black text-[14px] font-medium">
+                      Continue Edit
+                    </p>{" "}
+                    <img
+                      src={ArrowRight}
+                      alt="arrow-right-outline"
+                      className="ml-2.5"
+                    />
+                  </Button>
                 </div>
               </div>
             </div>
-            <div className="relative ml-auto" ref={featureRef}>
-              <div
-                className={twMerge(
-                  "absolute bottom-0 -left-64 invisible transition-all duration-300 ease-in-out opacity-0",
-                  isShowFeature && "visible opacity-100"
-                )}
-              >
-                <ListFeature action={() => imageContext.setImage(imageRes)} />
-              </div>
-              <Button
-                className="flex flex-row w-[140px] bg-white cursor-pointer h-10 pl-4 pr-2 py-2.5 items-center rounded-[4px] mr-6"
-                style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
-                onClick={() => setIsShowFeature(!isShowFeature)}
-              >
-                <p className="text-black text-[14px] font-medium">
-                  Continue Edit
-                </p>{" "}
-                <img
-                  src={ArrowRight}
-                  alt="arrow-right-outline"
-                  className="ml-2.5"
-                />
-              </Button>
-            </div>
           </div>
-        </div>
-      </div>
+        )}
+      </TransformWrapper>
     </div>
   );
 };
