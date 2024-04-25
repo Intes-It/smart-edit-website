@@ -28,10 +28,10 @@ const EditFaceChange = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const [selectType, setSelectType] = useState(2);
-  const [step, setStep] = useState<Number>(1);
+  const [step, setStep] = useState<number>(1);
 
   const [imageRes, setImageRes] = useState(null);
-  const [imageBody, setImageBody] = useState<File | null | Blob | any>(
+  const [imageBody, setImageBody] = useState<File | null | Blob | unknown>(
     typeof imageContext.image === "string"
       ? `data:image/jpeg;base64,${imageContext.image}`
       : null
