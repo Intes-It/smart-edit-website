@@ -14,6 +14,7 @@ import { compressImage } from "../../utils/comressImage";
 import iconDownload from "../../assets/icon/icon-download.svg";
 import backGroundCaro from "../../assets/back-ground-caro.jpg";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import html2canvas, { Options } from "html2canvas";
 
 const EditFaceId = () => {
   const imageContext = useImageContext();
@@ -171,6 +172,34 @@ const EditFaceId = () => {
     return () => clearTimeout(timeOut);
   }, [isError]);
 
+  const downloadImage = async () => {
+    const container = document.getElementById("my-div-id");
+    if (!container) {
+      console.error("Container element not found");
+      return;
+    }
+    try {
+      const options: Partial<Options> = {
+        // preserveDrawingBuffer: true,
+        width: container.offsetWidth,
+        height: container.offsetHeight,
+        scale: 1,
+      };
+      const canvas = await html2canvas(container, options);
+
+      // Tạo hình ảnh từ canvas và tải xuống
+      const imageUrl = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = imageUrl;
+      link.download = "image.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error generating image:", error);
+    }
+  };
+
   return (
     <div className="bg-white pt-10 pb-[118px] max-w-[1280px] mx-auto px-4">
       {isLoading && <Loading title="Working on your photo. Please wait" />}
@@ -238,6 +267,7 @@ const EditFaceId = () => {
                     backgroundColor: listBgColors[bgColor],
                   }}
                   className="mx-auto flex items-center justify-center  bg-cover overflow-hidden "
+                  id="my-div-id"
                 >
                   <TransformComponent>
                     <img
@@ -311,6 +341,9 @@ const EditFaceId = () => {
             className="text-white text-[14px]  w-[140px] h-[40px]   rounded-[4px]  mb-4 mt-[auto]  mx-auto"
             style={{
               background: "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
+            }}
+            onClick={() => {
+              downloadImage();
             }}
           >
             <img

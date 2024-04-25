@@ -112,6 +112,64 @@ const EditImage = () => {
     }
     return () => clearTimeout(timeOut);
   }, [isError]);
+
+  const mergeImages = (imageUrl: string, imageRes: string) => {
+    return new Promise((resolve, reject) => {
+      const newImage = new Image();
+      newImage.src = imageUrl;
+
+      newImage.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = newImage.width;
+        canvas.height = newImage.height;
+        const context = canvas.getContext("2d");
+        if (context) {
+          context.drawImage(newImage, 0, 0);
+          const imageResImage = new Image();
+          imageResImage.src = `data:image/jpeg;base64,${imageRes}`;
+
+          imageResImage.onload = function () {
+            context.drawImage(imageResImage, 0, 0);
+            const finalImageUrl = canvas.toDataURL("image/png");
+            resolve(finalImageUrl);
+          };
+        }
+      };
+    });
+  };
+  const downloadImage = async () => {
+    const image1 = new Image();
+    image1.src = imageContext.image
+      ? URL.createObjectURL(imageContext.image as File)
+      : "";
+    image1.onload = () => {
+      const lowerCanvas = document.createElement("canvas");
+      lowerCanvas.width = image1.width;
+      lowerCanvas.height = image1.height;
+      const filteredLowerContext = lowerCanvas.getContext("2d");
+      if (filteredLowerContext) {
+        filteredLowerContext.filter = `
+              blur(${blur / 10}px) 
+              brightness(${brightness + 50}%) 
+              contrast(${contrast + 50}%)
+              grayscale(${grayscale}%)
+              sepia(${sepia}%)
+            `;
+        filteredLowerContext.drawImage(image1, 0, 0);
+
+        const imageUrl = lowerCanvas.toDataURL("image/png");
+        mergeImages(imageUrl, imageRes as string).then((newImg) => {
+          const link = document.createElement("a");
+          link.href = newImg as string;
+          link.download = "image.png";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      }
+    };
+  };
+
   return (
     <div className="bg-white px-[200px] pt-10 pb-[118px]">
       {isLoading && <Loading title="Working on your photo. Please wait" />}
@@ -162,7 +220,7 @@ const EditImage = () => {
           boxShadow: "0px 2px 4px 0px #00000026",
         }}
       >
-        <div className="w-4/5 flex justify-center py-[42px] relative ">
+        <div className="w-4/5 flex justify-center py-[42px] relative image-container ">
           {/* <div
             style={{
               backgroundImage: `url(${
@@ -188,11 +246,13 @@ const EditImage = () => {
               sepia(${sepia}%)
               `,
             }}
+            id="lower-image"
           />
           <img
             src={imageRes ? `data:image/jpeg;base64,${imageRes}` : ""}
             alt=" image remove background"
             className=" w-fit h-[400px] absolute  "
+            id="upper-image"
           />
         </div>
         <div
@@ -246,6 +306,9 @@ const EditImage = () => {
               className="text-white text-[14px]  w-[140px] h-[40px]   rounded-[4px]  mb-4  "
               style={{
                 background: "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
+              }}
+              onClick={() => {
+                downloadImage();
               }}
             >
               <img
