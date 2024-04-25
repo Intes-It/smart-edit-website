@@ -31,7 +31,7 @@ const EditFaceChange = () => {
   const [step, setStep] = useState<number>(1);
 
   const [imageRes, setImageRes] = useState(null);
-  const [imageBody, setImageBody] = useState<File | null | Blob | unknown>(
+  const [imageBody, setImageBody] = useState<File | null | Blob | any>(
     typeof imageContext.image === "string"
       ? `data:image/jpeg;base64,${imageContext.image}`
       : null
