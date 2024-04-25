@@ -114,7 +114,7 @@ const EditImage = () => {
   }, [isError]);
 
   const mergeImages = (imageUrl: string, imageRes: string) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const newImage = new Image();
       newImage.src = imageUrl;
 
