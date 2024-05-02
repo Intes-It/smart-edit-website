@@ -53,7 +53,9 @@ const EditFaceChange = () => {
         if (!imageBody && !imageContext)
           setImageBody(`${API_URL}/${res.data.result[0]?.list[0]}`);
       }
-    } catch (error) {}
+    } catch (error) {
+      alert(String(error))
+    }
   };
 
   const handleUserUploadImg = async (event: ChangeEvent<HTMLInputElement>) => {
