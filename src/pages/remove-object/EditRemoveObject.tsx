@@ -1,6 +1,7 @@
 import manualIcon from "../../assets/icon/manual.svg";
 import manualActiveIcon from "../../assets/icon/manual-active.svg";
 import autoIcon from "../../assets/icon/auto.svg";
+import iconDownload from "../../assets/icon/icon-download.svg";
 import autoActiveIcon from "../../assets/icon/auto-active.svg";
 import IconTurnLeft from "../../assets/icon-turn-left.svg";
 import IconTurnLeftActive from "../../assets/icon-turn-left-active.svg";
@@ -405,6 +406,16 @@ const EditRemoveObject = () => {
     setPenSize(value);
   };
 
+  // download img
+  const downloadImage = async () => {
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(startImage as File);
+    link.download = "image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="flex flex-row">
       <div
@@ -725,10 +736,10 @@ const EditRemoveObject = () => {
                   </div>
                 </div>
               </div>
-              {selectActive !== 0 ? (
-                <div className="flex justify-center pt-[146px] pb-[46px]">
+              <div className="flex  pt-[146px] pb-[46px] ">
+                {selectActive !== 0 ? (
                   <Button
-                    className="text-white text-[20px] leading-[23.44px] w-[260px] h-[48px]   rounded-[40px]   "
+                    className="text-white text-[20px] leading-[23.44px] w-[260px] h-[48px]   rounded-[8px]  mx-auto "
                     style={{
                       background:
                         "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
@@ -747,10 +758,30 @@ const EditRemoveObject = () => {
                     />{" "}
                     Delete
                   </Button>
-                </div>
-              ) : (
-                <div className="pb-[240px]"></div>
-              )}
+                ) : (
+                  <div></div>
+                )}
+                <Button
+                  className="text-white text-[14px]  w-[140px] h-[40px]   rounded-[4px]   "
+                  style={{
+                    background:
+                      "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
+                    marginLeft: selectActive === 0 ? "auto" : "none",
+                  }}
+                  onClick={() => {
+                    downloadImage();
+                  }}
+                >
+                  <img
+                    src={iconDownload}
+                    alt="icon-download"
+                    width={"20px"}
+                    height={"20px"}
+                    className="mr-1"
+                  />{" "}
+                  Download
+                </Button>
+              </div>
             </div>
             <div className=" mb-[118px] flex-row flex justify-between ml-8 mr-[80px]">
               <div className="flex flex-row gap-2">
