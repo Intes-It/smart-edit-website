@@ -1,34 +1,34 @@
-import manualIcon from "../../assets/icon/manual.svg";
-import manualActiveIcon from "../../assets/icon/manual-active.svg";
-import autoIcon from "../../assets/icon/auto.svg";
-import autoActiveIcon from "../../assets/icon/auto-active.svg";
-import IconTurnLeft from "../../assets/icon-turn-left.svg";
-import IconTurnLeftActive from "../../assets/icon-turn-left-active.svg";
-import IconTurnRight from "../../assets/icon-turn-right.svg";
-import IconTurnRightActive from "../../assets/icon-turn-right-active.svg";
+import { Button, Checkbox, Slider } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
+import mergeImages from "merge-images";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import { twMerge } from "tailwind-merge";
+import axiosClient from "../../api/AxiosClient";
 import ArrowRight from "../../assets/arrow-right-outline.png";
-import AddOutline from "../../assets/ion_add-outline.png";
+import IconTurnLeftActive from "../../assets/icon-turn-left-active.svg";
+import IconTurnLeft from "../../assets/icon-turn-left.svg";
+import IconTurnRightActive from "../../assets/icon-turn-right-active.svg";
+import IconTurnRight from "../../assets/icon-turn-right.svg";
+import autoActiveIcon from "../../assets/icon/auto-active.svg";
+import autoIcon from "../../assets/icon/auto.svg";
 import backIcon from "../../assets/icon/back-icon.svg";
 import checkIcon from "../../assets/icon/check-icon.svg";
+import eraserActive from "../../assets/icon/erase-active.svg";
+import eraser from "../../assets/icon/eraser.svg";
 import iconMinus from "../../assets/icon/icon-minus.svg";
 import iconPlus from "../../assets/icon/icon-plus.svg";
-import paintBrush from "../../assets/icon/paint-brush.svg";
-import eraser from "../../assets/icon/eraser.svg";
-import paintBrushActive from "../../assets/icon/paint-brush-active.svg";
-import eraserActive from "../../assets/icon/erase-active.svg";
 import magicWand from "../../assets/icon/magic-wand.svg";
-import { Button, Checkbox, Slider } from "@mantine/core";
-import { useCallback, useEffect, useState } from "react";
-import { useImageContext } from "../../contexts/imageContext";
-import Loading from "../../components/Loading";
-import axiosClient from "../../api/AxiosClient";
-import PopupError from "../../components/PopupError";
-import { useNavigate } from "react-router-dom";
-import mergeImages from "merge-images";
-import { twMerge } from "tailwind-merge";
+import manualActiveIcon from "../../assets/icon/manual-active.svg";
+import manualIcon from "../../assets/icon/manual.svg";
+import paintBrushActive from "../../assets/icon/paint-brush-active.svg";
+import paintBrush from "../../assets/icon/paint-brush.svg";
+import AddOutline from "../../assets/ion_add-outline.png";
 import ListFeature from "../../components/ListFeature";
-import { useClickOutside } from "@mantine/hooks";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import Loading from "../../components/Loading";
+import PopupError from "../../components/PopupError";
+import { useImageContext } from "../../contexts/imageContext";
 
 const EditRemoveObject = () => {
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const EditRemoveObject = () => {
       if (image) formData.append("file", image as File);
       else if (startImage) formData.append("file", startImage as File);
 
-      const res = await axiosClient.post("detect_obj", formData);
+      const res = await axiosClient.post("detect_obj/", formData);
       let persons: number[] = [];
       let objs: number[] = [];
 
@@ -325,7 +325,7 @@ const EditRemoveObject = () => {
     if (startImage) formData.append("file1", mergedImageBase64 as File);
     if (startImage) formData.append("file2", startImage as File);
 
-    const res = await axiosClient.post("objrem", formData);
+    const res = await axiosClient.post("objrem/", formData);
 
     if (res.data && res.data.result) {
       const mergedImage = `data:image/jpeg;base64,${res.data.result}`;
@@ -501,7 +501,7 @@ const EditRemoveObject = () => {
               <div className="text-[12px] text-[#424242] font-medium flex flex-row gap-2 ml-auto mt-6">
                 Select all <Checkbox></Checkbox>
               </div>
-              <div className="mt-2 flex flex-col">
+              <div className="flex flex-col mt-2">
                 {listPerson?.map((item, index) => (
                   <div
                     key={item}
@@ -534,7 +534,7 @@ const EditRemoveObject = () => {
               <div className="text-[12px] text-[#424242] font-medium flex flex-row gap-2 ml-auto mt-6">
                 Select all <Checkbox></Checkbox>
               </div>
-              <div className="mt-2 flex flex-col">
+              <div className="flex flex-col mt-2">
                 {listObj?.map((item, index) => (
                   <div
                     key={item}
@@ -627,7 +627,7 @@ const EditRemoveObject = () => {
                 />
               </div>
             </div>
-            <div className="mt-8 flex flex-col px-3">
+            <div className="flex flex-col px-3 mt-8">
               <div className="text-[12px] text-[#424242] font-medium">Size</div>
               <Slider
                 value={penSize}
@@ -672,7 +672,7 @@ const EditRemoveObject = () => {
                     onMouseMove={draw}
                     onMouseUp={finishDrawing}
                     onMouseOut={finishDrawing}
-                    className="mt-10  bg-cover bg-no-repeat"
+                    className="mt-10 bg-no-repeat bg-cover"
                   ></canvas>
                 </TransformComponent>
 
@@ -690,7 +690,7 @@ const EditRemoveObject = () => {
                   width={"100%"}
                   height={"100%"}
                 />
-                <div className=" flex flex-col ">
+                <div className="flex flex-col ">
                   <div>
                     <img
                       onMouseDown={() => handleHover(true)}
@@ -709,7 +709,7 @@ const EditRemoveObject = () => {
                       onClick={() => zoomOut()}
                       width={"40px"}
                       height={"40px"}
-                      className=" mt-2 ml-28"
+                      className="mt-2 ml-28"
                       style={{ cursor: "pointer" }}
                     />
                   </div>
@@ -754,7 +754,7 @@ const EditRemoveObject = () => {
             </div>
             <div className=" mb-[118px] flex-row flex justify-between ml-8 mr-[80px]">
               <div className="flex flex-row gap-2">
-                <div className="flex-col flex ">
+                <div className="flex flex-col ">
                   <img
                     src={
                       backupcurrent === 0 ? IconTurnLeft : IconTurnLeftActive
@@ -770,7 +770,7 @@ const EditRemoveObject = () => {
                   </div>
                 </div>
 
-                <div className="flex-col flex ">
+                <div className="flex flex-col ">
                   <img
                     src={
                       backup.length - backupcurrent - 1 === 0

@@ -1,20 +1,20 @@
 import { Button } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
+import html2canvas, { Options } from "html2canvas";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { twMerge } from "tailwind-merge";
 import axiosClient from "../../api/AxiosClient";
 import ArrowRight from "../../assets/arrow-right-outline.png";
+import backGroundCaro from "../../assets/back-ground-caro.jpg";
+import iconDownload from "../../assets/icon/icon-download.svg";
 import IconUploadBlack from "../../assets/icon_upload_black.svg";
 import ListFeature from "../../components/ListFeature";
 import Loading from "../../components/Loading";
 import PopupError from "../../components/PopupError";
 import { useImageContext } from "../../contexts/imageContext";
 import { compressImage } from "../../utils/comressImage";
-import iconDownload from "../../assets/icon/icon-download.svg";
-import backGroundCaro from "../../assets/back-ground-caro.jpg";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import html2canvas, { Options } from "html2canvas";
 
 const EditFaceId = () => {
   const imageContext = useImageContext();
@@ -141,7 +141,7 @@ const EditFaceId = () => {
       else if (imageContext.image)
         formData.append("file", imageContext.image as File);
 
-      const res = await axiosClient.post("bgrem", formData);
+      const res = await axiosClient.post("bgrem/", formData);
       if (res.data.status === 200) {
         setImageRes(res.data?.result);
       } else {
@@ -246,7 +246,7 @@ const EditFaceId = () => {
       </div>
 
       <div
-        className="mt-8   flex flex-row "
+        className="flex flex-row mt-8 "
         style={{
           boxShadow: "0px 2px 4px 0px rgba(0, 0, 0, 0.15)",
         }}
@@ -266,7 +266,7 @@ const EditFaceId = () => {
                     height: listImageSizes[imageSize].height,
                     backgroundColor: listBgColors[bgColor],
                   }}
-                  className="mx-auto flex items-center justify-center  bg-cover overflow-hidden "
+                  className="flex items-center justify-center mx-auto overflow-hidden bg-cover "
                   id="my-div-id"
                 >
                   <TransformComponent>
@@ -294,7 +294,7 @@ const EditFaceId = () => {
         </div>
 
         <div
-          className="px-3 pt-4 pb-6  flex-col flex "
+          className="flex flex-col px-3 pt-4 pb-6 "
           style={{ borderLeft: "1px solid rgba(241, 240, 240, 1)" }}
         >
           <div className="text-[rgba(66, 66, 66, 1)] font-medium text-[14px] mb-4">
