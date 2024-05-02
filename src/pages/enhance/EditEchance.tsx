@@ -116,6 +116,15 @@ const EditEchance = () => {
     return () => clearTimeout(timeOut);
   }, [isError]);
 
+  // download image
+  const downloadImage = async () => {
+    const link = document.createElement("a");
+    link.href = `data:image/jpeg;base64,${imageRes}`;
+    link.download = "image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <div className="bg-white pt-10 pb-[118px] max-w-[1280px] mx-auto px-4">
       {isLoading && <Loading title="Working on your photo. Please wait" />}
@@ -200,6 +209,9 @@ const EditEchance = () => {
             className="text-white text-[14px]  w-[140px] h-[40px]   rounded-[4px]  mb-4  "
             style={{
               background: "linear-gradient(180deg, #8151E6 0%, #FD7BA3 100%)",
+            }}
+            onClick={() => {
+              downloadImage();
             }}
           >
             <img
