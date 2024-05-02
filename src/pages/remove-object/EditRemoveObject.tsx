@@ -30,6 +30,7 @@ import { twMerge } from "tailwind-merge";
 import ListFeature from "../../components/ListFeature";
 import { useClickOutside } from "@mantine/hooks";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { compressImage } from "../../utils/comressImage";
 
 const EditRemoveObject = () => {
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ const EditRemoveObject = () => {
       else if (startImage) formData.append("file", startImage as File);
 
       const res = await axiosClient.post("detect_obj/", formData);
+
       let persons: number[] = [];
       let objs: number[] = [];
 
@@ -304,9 +306,6 @@ const EditRemoveObject = () => {
     setBackupcurrent(cr);
     setBackup(bu);
 
-    console.log(cr);
-    console.log(bu);
-
     setImageRes(mergedImageUrl);
   };
 
@@ -416,6 +415,18 @@ const EditRemoveObject = () => {
     document.body.removeChild(link);
   };
 
+  // new image
+  const handleUploadImage = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const uploadedFile = await compressImage(event.target.files?.[0] as File);
+
+    if (uploadedFile) {
+      setStartImage(uploadedFile as File);
+      imageRes && setImageRes("");
+      imageContext.setImage(uploadedFile as File);
+    }
+  };
   return (
     <div className="flex flex-row">
       <div
@@ -872,10 +883,23 @@ const EditRemoveObject = () => {
                     />
                   </Button>
                 </div>
-                <div
-                  className="flex flex-row w-[120px] h-10 px-2 py-2.5 items-center rounded-[4px]"
-                  style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
+                <label
+                  htmlFor="upload"
+                  className="flex flex-row w-[120px] h-10 px-2 py-2.5 items-center rounded-[4px] "
+                  style={{
+                    boxShadow: "0px 2px 8px 0px #00000026",
+                    cursor: "pointer",
+                  }}
                 >
+                  <input
+                    type="file"
+                    name="upload"
+                    onChange={handleUploadImage}
+                    multiple={false}
+                    id="upload"
+                    accept="image/png, image/jpeg"
+                    className="hidden"
+                  />
                   <img
                     src={AddOutline}
                     alt="arrow-right-outline"
@@ -883,8 +907,8 @@ const EditRemoveObject = () => {
                   />
                   <p className="text-black text-[14px] font-medium">
                     New Image
-                  </p>{" "}
-                </div>
+                  </p>
+                </label>
               </div>
             </div>
           </div>
