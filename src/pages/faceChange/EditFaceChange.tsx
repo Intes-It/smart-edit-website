@@ -28,7 +28,7 @@ const EditFaceChange = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const [selectType, setSelectType] = useState(2);
-  const [step, setStep] = useState<Number>(1);
+  const [step, setStep] = useState<number>(1);
 
   const [imageRes, setImageRes] = useState(null);
   const [imageBody, setImageBody] = useState<File | null | Blob | any>(
@@ -53,7 +53,9 @@ const EditFaceChange = () => {
         if (!imageBody && !imageContext)
           setImageBody(`${API_URL}/${res.data.result[0]?.list[0]}`);
       }
-    } catch (error) {}
+    } catch (error) {
+      alert(String(error));
+    }
   };
 
   const handleUserUploadImg = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -114,7 +116,7 @@ const EditFaceChange = () => {
       formData.append("source", (newImageFace as File) || imageFace);
       formData.append("target", targetFile);
 
-      const res = await axiosClient.post("swap_face", formData);
+      const res = await axiosClient.post("swap_face/", formData);
       if (res.data?.status === 200) {
         setImageRes(res.data?.result);
         setStep(2);

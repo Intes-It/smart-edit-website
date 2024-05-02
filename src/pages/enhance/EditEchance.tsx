@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import axiosClient from "../../api/AxiosClient";
 import ArrowRight from "../../assets/arrow-right-outline.png";
+import checkIcon from "../../assets/icon/check-icon.svg";
+import iconDownload from "../../assets/icon/icon-download.svg";
 import IconUploadBlack from "../../assets/icon_upload_black.svg";
 import ListFeature from "../../components/ListFeature";
 import Loading from "../../components/Loading";
 import PopupError from "../../components/PopupError";
 import { useImageContext } from "../../contexts/imageContext";
 import { compressImage } from "../../utils/comressImage";
-import iconDownload from "../../assets/icon/icon-download.svg";
-import checkIcon from "../../assets/icon/check-icon.svg";
 
 const EditEchance = () => {
   const imageContext = useImageContext();
@@ -85,7 +85,7 @@ const EditEchance = () => {
         formData.append("image", imageContext.image as File);
       }
 
-      const res = await axiosClient.post("enhance", formData);
+      const res = await axiosClient.post("enhance/", formData);
       if (res.data.status === 200) {
         setImageRes(res.data?.result);
       } else {
@@ -162,7 +162,7 @@ const EditEchance = () => {
       </div>
 
       <div
-        className="mt-8   flex flex-row "
+        className="flex flex-row mt-8 "
         style={{
           boxShadow: "0px 2px 4px 0px rgba(0, 0, 0, 0.15)",
         }}

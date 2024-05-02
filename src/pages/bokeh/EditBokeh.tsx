@@ -1,17 +1,17 @@
 import { Button, Slider } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
+import axiosClient from "../../api/AxiosClient";
 import ArrowRight from "../../assets/arrow-right-outline.png";
 import iconDownload from "../../assets/icon/icon-download.svg";
 import IconUploadBlack from "../../assets/icon_upload_black.svg";
-import { compressImage } from "../../utils/comressImage";
-import { useImageContext } from "../../contexts/imageContext";
-import { useNavigate } from "react-router-dom";
-import { useClickOutside } from "@mantine/hooks";
+import ListFeature from "../../components/ListFeature";
 import Loading from "../../components/Loading";
 import PopupError from "../../components/PopupError";
-import axiosClient from "../../api/AxiosClient";
-import ListFeature from "../../components/ListFeature";
-import { twMerge } from "tailwind-merge";
+import { useImageContext } from "../../contexts/imageContext";
+import { compressImage } from "../../utils/comressImage";
 const EditImage = () => {
   const [blur, setBlurl] = useState(0);
   const [brightness, setBrightness] = useState(50);
@@ -83,7 +83,7 @@ const EditImage = () => {
       else if (imageContext.image)
         formData.append("file", imageContext.image as File);
 
-      const res = await axiosClient.post("bgrem", formData);
+      const res = await axiosClient.post("bgrem/", formData);
       if (res.data.status === 200) {
         setImageRes(res.data?.result);
       } else {
@@ -228,7 +228,7 @@ const EditImage = () => {
               })`,
               height: "400px",
             }}
-            className="w-fit object-contain bg-cover blur-bg-img absolute"
+            className="absolute object-contain bg-cover w-fit blur-bg-img"
           > */}
           <img
             src={
