@@ -47,7 +47,7 @@ export default defineConfig({
             );
           });
         },
-        // rewrite: (path) => path.replace(/^\/apii/, ""),
+        rewrite: (path) => path.replace(/^\/apii/, ""),
       },
     },
     port:3000

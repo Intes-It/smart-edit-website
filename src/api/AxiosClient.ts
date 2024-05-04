@@ -3,7 +3,7 @@ import axios from "axios";
 export const API_URL = 'http://103.176.149.253:8088';
 
 const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_BASE_URL}`,
+  baseURL: `${import.meta.env.VITE_BASE_URL}api`,
   headers: {
     "Content-Type": "application/json",
   },
