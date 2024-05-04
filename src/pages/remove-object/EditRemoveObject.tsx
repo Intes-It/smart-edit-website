@@ -78,7 +78,7 @@ const EditRemoveObject = () => {
       if (image) formData.append("file", image as File);
       else if (startImage) formData.append("file", startImage as File);
 
-      const res = await axiosClient.post("detect_obj/", formData);
+      const res = await axiosClient.post("/apii/detect_obj/", formData);
 
       let persons: number[] = [];
       let objs: number[] = [];
