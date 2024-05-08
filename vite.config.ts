@@ -16,18 +16,22 @@ export default defineConfig({
             console.log("proxy error", err);
           });
           proxy.on("proxyReq", (proxyReq, req) => {
-            console.log("Sending Request to the Target:", req.method, req.url);
+            console.log(
+              "Sending Request to the Target http://103.176.149.253:8088:",
+              req.method,
+              req.url
+            );
           });
           proxy.on("proxyRes", (proxyRes, req) => {
             console.log(
-              "Received Response from the Target:",
+              "Received Response from the Target: http://103.176.149.253:8088",
               proxyRes.statusCode,
               req.url
             );
           });
         },
       },
-      "/apii": {
+      "/apx": {
         target: "http://171.244.64.245:8080",
         changeOrigin: true,
         secure: true,
@@ -37,20 +41,23 @@ export default defineConfig({
             console.log("proxy error", err);
           });
           proxy.on("proxyReq", (proxyReq, req) => {
-            console.log("Sending Request to the Target:", req.method, req.url);
+            console.log(
+              "Sending Request to the Target: http://171.244.64.245:8080",
+              req.method,
+              req.url
+            );
           });
           proxy.on("proxyRes", (proxyRes, req) => {
             console.log(
-              "Received Response from the Target:",
+              "Received Response from the Target:http://171.244.64.245:8080",
               proxyRes.statusCode,
               req.url
             );
           });
         },
-        rewrite: (path) => path.replace(/^\/apii/, ""),
+        rewrite: (path) => path.replace(/^\/apx/, "api"),
       },
     },
-    port:3000
+    port: 3000,
   },
-
 });
