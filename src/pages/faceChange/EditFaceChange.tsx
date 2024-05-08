@@ -47,7 +47,7 @@ const EditFaceChange = () => {
 
   const getListImageBody = async () => {
     try {
-      const res = await axiosClient.get("list_image_body");
+      const res = await axiosClient.get("api/list_image_body");
       if (res.status === 200) {
         setListImages(res.data?.result);
         if (!imageBody && !imageContext)
@@ -116,7 +116,7 @@ const EditFaceChange = () => {
       formData.append("source", (newImageFace as File) || imageFace);
       formData.append("target", targetFile);
 
-      const res = await axiosClient.post("swap_face/", formData);
+      const res = await axiosClient.post("api/swap_face/", formData);
       if (res.data?.status === 200) {
         setImageRes(res.data?.result);
         setStep(2);
