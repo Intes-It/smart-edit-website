@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useState } from "react";
 
 const listTools = [
   {
@@ -32,6 +33,8 @@ const ListHelps = [
 ];
 
 const Footer = () => {
+  const [help, setHelp] = useState(-1);
+  const navigate = useNavigate();
   return (
     <footer
       className="w-full py-8 font-medium"
@@ -58,7 +61,21 @@ const Footer = () => {
           <div className="flex flex-col text-[#F6E3F9] gap-3">
             <div className="text-white">Help</div>
             {ListHelps.map((item, index) => (
-              <Link key={index} to={item.hrf}>
+              <Link
+                key={index}
+                to={item.hrf}
+                onClick={() => {
+                  if (index === help) {
+                    setHelp(-1);
+                    navigate("/");
+                  } else {
+                    setHelp(index);
+                  }
+                }}
+                style={{
+                  color: help === index ? "white" : "inherit",
+                }}
+              >
                 {item.title}
               </Link>
             ))}

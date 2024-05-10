@@ -47,9 +47,12 @@ const Header = () => {
             <div className="flex items-center gap-3 px-4 py-2 transition duration-300 ease-in-out hover:bg-[#FAF5FF] cursor-pointer rounded-lg">
               Pricing
             </div>
-            <div className="flex items-center gap-3 px-4 py-2 cursor-pointer transition duration-300 ease-in-out hover:bg-[#FAF5FF] rounded-lg">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.abi.remove.plus.background&hl=vi&gl=US"
+              className="flex items-center gap-3 px-4 py-2 cursor-pointer transition duration-300 ease-in-out hover:bg-[#FAF5FF] rounded-lg"
+            >
               Download App
-            </div>
+            </a>
           </div>
         </div>
         <div className="flex">
