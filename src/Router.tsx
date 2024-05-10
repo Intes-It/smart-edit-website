@@ -17,6 +17,9 @@ import EditImage from "./pages/remove-background/EditImage";
 import RemoveBackground from "./pages/remove-background/RemoveBackground";
 import EditRemoveObject from "./pages/remove-object/EditRemoveObject";
 import RemoveObject from "./pages/remove-object/RemoveObject";
+import AboutUs from "./pages/about-us/AboutUs";
+import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
+import TermsOfUse from "./pages/terms-of-use/TermsOfUse";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +97,18 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <Notfound />,
+      },
+      {
+        path: "about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "terms-of-use",
+        element: <TermsOfUse />,
       },
     ],
   },

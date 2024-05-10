@@ -185,6 +185,8 @@ const EditFaceId = () => {
         height: container.offsetHeight,
         scale: 1,
       };
+      console.log(options);
+
       const canvas = await html2canvas(container, options);
 
       // Tạo hình ảnh từ canvas và tải xuống
@@ -258,17 +260,17 @@ const EditFaceId = () => {
             }}
             className="w-[380px] h-[415px] bg-no-repeat bg-cover flex items-center"
           >
-            <TransformWrapper initialScale={1} minScale={1} maxScale={3}>
-              {() => (
-                <div
-                  style={{
-                    width: listImageSizes[imageSize].width,
-                    height: listImageSizes[imageSize].height,
-                    backgroundColor: listBgColors[bgColor],
-                  }}
-                  className="flex items-center justify-center mx-auto overflow-hidden bg-cover "
-                  id="my-div-id"
-                >
+            <div
+              style={{
+                width: listImageSizes[imageSize].width,
+                height: listImageSizes[imageSize].height,
+                backgroundColor: listBgColors[bgColor],
+              }}
+              className="flex items-center justify-center mx-auto overflow-hidden bg-cover "
+              id="my-div-id"
+            >
+              <TransformWrapper initialScale={1} minScale={1} maxScale={3}>
+                {() => (
                   <TransformComponent>
                     <img
                       src={
@@ -287,9 +289,9 @@ const EditFaceId = () => {
                       className="object-contain w-fit"
                     />
                   </TransformComponent>
-                </div>
-              )}
-            </TransformWrapper>
+                )}
+              </TransformWrapper>
+            </div>
           </div>
         </div>
 
