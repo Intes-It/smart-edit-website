@@ -673,30 +673,37 @@ const EditRemoveObject = () => {
               <Loading title="Working on your photo. Please wait" />
             )}
             {isError && <PopupError title="Can not upload image" />}
-            <div className="w-3/5 mx-auto">
+            <div className="w-[1040px] min-w-[1040px] mx-auto min-h-[500px]">
               <div className="flex flex-row">
-                <TransformComponent>
-                  <canvas
-                    id="mycanvas"
-                    style={{
-                      backgroundImage: `URL(${
-                        imageRes
-                          ? imageRes
-                          : startImage
-                          ? URL.createObjectURL(startImage as File)
-                          : ""
-                      })`,
-                      backgroundSize: "100%",
-                      backgroundRepeat: "no-repeat",
-                      display: isHovered ? "none" : "block",
-                    }}
-                    onMouseDown={startDrawing}
-                    onMouseMove={draw}
-                    onMouseUp={finishDrawing}
-                    onMouseOut={finishDrawing}
-                    className="mt-10  bg-cover bg-no-repeat"
-                  ></canvas>
-                </TransformComponent>
+                <div className="flex flex-1 justify-center">
+                  <TransformComponent>
+                    <canvas
+                      id="mycanvas"
+                      style={{
+                        backgroundImage: `URL(${
+                          imageRes
+                            ? imageRes
+                            : startImage
+                            ? URL.createObjectURL(startImage as File)
+                            : ""
+                        })`,
+                        backgroundSize: "100%",
+                        objectFit: "contain",
+                        width: "100%",
+                        height: "auto",
+                        minHeight: "500px",
+                        backgroundRepeat: "no-repeat",
+                        display: isHovered ? "none" : "block",
+                        // flex: 1,
+                      }}
+                      onMouseDown={startDrawing}
+                      onMouseMove={draw}
+                      onMouseUp={finishDrawing}
+                      onMouseOut={finishDrawing}
+                      className="mt-10  bg-cover bg-no-repeat mx-auto"
+                    ></canvas>
+                  </TransformComponent>
+                </div>
 
                 <img
                   src={
@@ -708,9 +715,7 @@ const EditRemoveObject = () => {
                   style={{
                     display: isHovered ? "block" : "none",
                   }}
-                  className="w-[auto] h-[auto] mt-10"
-                  width={"100%"}
-                  height={"100%"}
+                  className="w-[1040px] h-[500px] object-contain mt-10"
                 />
                 <div className=" flex flex-col ">
                   <div>
