@@ -12,12 +12,12 @@ const AboutUs = () => {
           <span className=" font-bold">SmartEdit</span>
           <span className="font-normal ml-3"> version 1.0.0</span>
         </div>
-        <div className="mx-[10%] mt-32 text-[24px] text-black text-center ">
+        <div className="mx-[10%] mt-32 text-[24px] text-[#6C6C6C] text-center ">
           <span className="font-normal">
             Do you have any image that contains unexpected background or
             objects.{" "}
           </span>
-          <span className="font-semibold">SmartEdit</span>{" "}
+          <span className="font-semibold text-black">SmartEdit</span>{" "}
           <span className="font-normal">
             will help you to remove the background. And more than that,you can
             also add other background to the image,text,color,... Just try our
