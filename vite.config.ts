@@ -17,14 +17,14 @@ export default defineConfig({
           });
           proxy.on("proxyReq", (proxyReq, req) => {
             console.log(
-              "Sending Request to the Target http://103.176.149.253:8088:",
+              "Sending Request to the Target http://103.176.149.253:8088/",
               req.method,
               req.url
             );
           });
           proxy.on("proxyRes", (proxyRes, req) => {
             console.log(
-              "Received Response from the Target: http://103.176.149.253:8088",
+              "Received Response from the Target: http://103.176.149.253:8088/",
               proxyRes.statusCode,
               req.url
             );
@@ -42,14 +42,14 @@ export default defineConfig({
           });
           proxy.on("proxyReq", (proxyReq, req) => {
             console.log(
-              "Sending Request to the Target: http://171.244.64.245:8080",
+              "Sending Request to the Target: http://171.244.64.245:8080/",
               req.method,
               req.url
             );
           });
           proxy.on("proxyRes", (proxyRes, req) => {
             console.log(
-              "Received Response from the Target:http://171.244.64.245:8080",
+              "Received Response from the Target:http://171.244.64.245:8080/",
               proxyRes.statusCode,
               req.url
             );
