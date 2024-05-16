@@ -1,6 +1,6 @@
 const TermsOfUse = () => {
   return (
-    <div className="pt-[7%] px-[10%] bg-[#f0f0f0]">
+    <div className="py-[7%] px-[10%] bg-[#f0f0f0]">
       <div className="bg-white pt-[10%] px-[10%] pb-[10%] flex flex-col gap-1 text-black">
         <h2>
           <strong className="text-[16px] font-bold text-black">
