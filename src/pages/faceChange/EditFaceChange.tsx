@@ -107,10 +107,10 @@ const EditFaceChange = () => {
     setIsLoading(true);
     try {
       const formData = new FormData();
-      const targetFile = await imageUrlToFile(
-        newImageBody || imageBody,
-        "body-change"
-      );
+      const targetFile =
+        typeof newImageBody === "string" || typeof imageBody === "string"
+          ? await imageUrlToFile(newImageBody || imageBody, "body-change")
+          : newImageBody || imageBody;
 
       formData.append("stype", "swap_face");
       formData.append("source", (newImageFace as File) || imageFace);

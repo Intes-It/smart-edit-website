@@ -1,5 +1,5 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://103.176.149.253:8088",
+        target: "http://103.176.149.253:8088/",
         changeOrigin: true,
         secure: true,
         ws: false,
@@ -32,7 +32,7 @@ export default defineConfig({
         },
       },
       "/apx": {
-        target: "http://171.244.64.245:8080",
+        target: "http://171.244.64.245:8080/",
         changeOrigin: true,
         secure: true,
         ws: false,
