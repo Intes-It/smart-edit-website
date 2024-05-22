@@ -325,7 +325,7 @@ const EditRemoveObject = () => {
     if (startImage) formData.append("file1", mergedImageBase64 as File);
     if (startImage) formData.append("file2", startImage as File);
 
-    const res = await axiosClient.post("apx/objrem/", formData);
+    const res = await axiosClient.post("/apx/objrem/", formData);
 
     if (res.data && res.data.result) {
       const mergedImage = `data:image/jpeg;base64,${res.data.result}`;

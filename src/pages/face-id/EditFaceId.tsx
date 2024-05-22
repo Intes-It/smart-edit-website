@@ -141,7 +141,7 @@ const EditFaceId = () => {
       else if (imageContext.image)
         formData.append("file", imageContext.image as File);
 
-      const res = await axiosClient.post("apx/bgrem/", formData);
+      const res = await axiosClient.post("/apx/bgrem/", formData);
       if (res.data.status === 200) {
         setImageRes(res.data?.result);
       } else {
