@@ -278,6 +278,7 @@ const EditHotTrend = () => {
           </div>
         </div>
       </div>
+      sửa cái này
       <TransformWrapper
         initialScale={1}
         maxScale={2}
