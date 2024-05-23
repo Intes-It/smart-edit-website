@@ -28,7 +28,7 @@ const ListBackground = ({ title, listSteps }: StepGuideProps) => {
               {index + 1}
             </div>
             <div className="text-black text-[20px] mx-8">
-              <span className="font-bold ">Step {index + 1} : </span>
+              <span className="font-bold ">Step {index + 1}: </span>
               <span className="font-normal ">{item.title}</span>
             </div>
           </div>

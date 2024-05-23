@@ -19,63 +19,54 @@ const OurFeature = () => {
     {
       image: RemoveBackground,
       header: "Remove background",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+      content: "Remove the background from image fast and easily.",
     },
     {
       image: BokehBackground,
       header: "Bokeh background",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ",
+      content: "Blur the background in order to highlight main object.",
     },
     {
       image: RemovePeople,
       header: "Remove people",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+      content: "Remove unexpected people or object.",
     },
     {
       image: remove_wire,
       header: "Remove wire",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+      content: "Remove wire from picture.",
     },
     {
       image: face_id,
       header: "Face ID",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+      content: "Edit your image into a passport or ID photo version.",
     },
     {
       image: pet_id_photo,
       header: "Pet ID photo",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+      content: "Create your pet ID photo.",
     },
 
     {
       image: hot_trend,
       header: "Hot trend",
       content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+        "Hot trend filter to transform your photo to become fore interesting.",
     },
     {
       image: anime_ai,
       header: "Anime AI",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+      content: "Anime filter for your photo.",
     },
     {
       image: enhance_iamge,
       header: "Enhance image",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt  ",
+      content: "Sharpen your blurry image.",
     },
     {
       image: face_change,
       header: "Face change",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+      content: "Swap your face with face from selected image.",
     },
   ];
   return (
@@ -87,7 +78,7 @@ const OurFeature = () => {
         rewind={true}
         navigation={true}
         modules={[Navigation]}
-        loop={false}
+        loop={true}
         breakpoints={{
           320: {
             slidesPerView: 1,

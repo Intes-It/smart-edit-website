@@ -220,8 +220,9 @@ const EditImage = () => {
           boxShadow: "0px 2px 4px 0px #00000026",
         }}
       >
-        <div className="w-4/5 flex justify-center py-[42px] relative image-container ">
-          {/* <div
+        {imageRes && imageContext.image ? (
+          <div className="w-4/5 flex justify-center py-[42px] relative image-container ">
+            {/* <div
             style={{
               backgroundImage: `url(${
                 
@@ -230,36 +231,40 @@ const EditImage = () => {
             }}
             className="absolute object-contain bg-cover w-fit blur-bg-img"
           > */}
-          <img
-            src={
-              (image || imageContext.image) &&
-              URL.createObjectURL(image || (imageContext.image as File))
-            }
-            alt=" image remove background"
-            className=" w-fit h-[400px] absolute"
-            style={{
-              filter: `
+            <img
+              src={
+                (image || imageContext.image) &&
+                URL.createObjectURL(image || (imageContext.image as File))
+              }
+              alt=" image remove background"
+              className=" w-fit h-[400px] absolute"
+              style={{
+                filter: `
               blur(${blur / 10}px) 
               brightness(${brightness + 50}%) 
               contrast(${contrast + 50}%)
               grayscale(${grayscale}%)
               sepia(${sepia}%)
               `,
-            }}
-            id="lower-image"
-          />
-          <img
-            src={imageRes ? `data:image/jpeg;base64,${imageRes}` : ""}
-            alt=" image remove background"
-            className=" w-fit h-[400px] absolute  "
-            id="upper-image"
-          />
-        </div>
+              }}
+              id="lower-image"
+            />
+            <img
+              src={imageRes ? `data:image/jpeg;base64,${imageRes}` : ""}
+              alt=""
+              className=" w-fit h-[400px] absolute  "
+              id="upper-image"
+            />
+          </div>
+        ) : (
+          <div className="w-4/5 flex justify-center py-[42px] relative image-container "></div>
+        )}
+
         <div
           style={{ borderLeft: "1px solid #F1F0F0" }}
-          className="flex flex-col items-center justify-between w-1/5"
+          className="flex flex-col items-center justify-between w-1/5 min-w-[300px]"
         >
-          <div>
+          <div className="mt-4">
             <div className="text-[14px] text-[#424242] font-medium mr-auto ml-3">
               Blur
             </div>
@@ -330,7 +335,7 @@ const EditImage = () => {
                 <ListFeature action={() => imageContext.setImage(imageRes)} />
               </div>
               <Button
-                className="flex flex-row w-[140px] bg-white cursor-pointer h-10 pl-4 pr-2 py-2.5 items-center rounded-[4px] "
+                className="flex flex-row w-[140px] bg-white cursor-pointer h-10 pl-4 pr-2 py-2.5 items-center rounded-[4px] mb-6 "
                 style={{ boxShadow: "0px 2px 8px 0px #00000026" }}
                 onClick={() => setIsShowFeature(!isShowFeature)}
               >

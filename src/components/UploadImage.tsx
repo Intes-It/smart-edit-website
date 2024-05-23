@@ -47,7 +47,7 @@ const UploadImage = ({
 
   return (
     <div className="bg-[#F5EBFF] py-[97px] flex ">
-      <div className="flex flex-wrap max-w-[1280px] w-full justify-between mx-auto px-[10px]">
+      <div className="flex flex-wrap max-w-[1280px] w-full gap-16 mx-auto px-[10px]">
         <div className="flex flex-col w-3/5 max-w-[584px]">
           <div className="font-bold flex-1 text-[40px] mb-12 leading-[47px]">
             {title}
