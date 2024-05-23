@@ -85,7 +85,7 @@ const EditEchance = () => {
         formData.append("image", imageContext.image as File);
       }
 
-      const res = await axiosClient.post("api/enhance/", formData);
+      const res = await axiosClient.post("/api/enhance/", formData);
       if (res.data.status === 200) {
         setImageRes(res.data?.result);
       } else {

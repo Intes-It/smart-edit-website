@@ -46,7 +46,7 @@ const EditHotTrend = () => {
 
   const getListOptionAnime = async () => {
     try {
-      const res = await axiosClient.get("api/get_list_anime?type=2");
+      const res = await axiosClient.get("/api/get_list_anime?type=2");
 
       if (res.status === 200) {
         setListOptions(res.data.result);
@@ -143,7 +143,7 @@ const EditHotTrend = () => {
       payload.append("num_inference_steps", "20");
       payload.append("seed", "1");
 
-      const res = await axiosClient.post("api/stable_diffusion_v2/", payload);
+      const res = await axiosClient.post("/api/stable_diffusion_v2/", payload);
 
       if (res.status === 200) {
         setImageRes(res.data?.result);
