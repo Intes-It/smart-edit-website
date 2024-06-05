@@ -19,54 +19,54 @@ const OurFeature = () => {
     {
       image: RemoveBackground,
       header: "Remove background",
-      content: "Remove the background from image fast and easily.",
+      content: "Remove the background from image fast and easily",
     },
     {
       image: BokehBackground,
       header: "Bokeh background",
-      content: "Blur the background in order to highlight main object.",
+      content: "Blur the background in order to highlight main object",
     },
     {
       image: RemovePeople,
       header: "Remove people",
-      content: "Remove unexpected people or object.",
+      content: "Remove unexpected people or object",
     },
     {
       image: remove_wire,
       header: "Remove wire",
-      content: "Remove wire from picture.",
+      content: "Remove wire from picture",
     },
     {
       image: face_id,
       header: "Face ID",
-      content: "Edit your image into a passport or ID photo version.",
+      content: "Edit your image into a passport or ID photo version",
     },
     {
       image: pet_id_photo,
       header: "Pet ID photo",
-      content: "Create your pet ID photo.",
+      content: "Create your pet ID photo",
     },
 
     {
       image: hot_trend,
       header: "Hot trend",
       content:
-        "Hot trend filter to transform your photo to become fore interesting.",
+        "Hot trend filter to transform your photo to become fore interesting",
     },
     {
       image: anime_ai,
       header: "Anime AI",
-      content: "Anime filter for your photo.",
+      content: "Anime filter for your photo",
     },
     {
       image: enhance_iamge,
       header: "Enhance image",
-      content: "Sharpen your blurry image.",
+      content: "Sharpen your blurry image",
     },
     {
       image: face_change,
       header: "Face change",
-      content: "Swap your face with face from selected image.",
+      content: "Swap your face with face from selected image",
     },
   ];
   return (
@@ -110,7 +110,7 @@ const OurFeature = () => {
         {listSteps?.map((item, index) => (
           <SwiperSlide
             key={index}
-            className="rounded-[20px] border-solid border-[1px] border-[#FD3B62] flex flex-col p-3"
+            className="rounded-[20px] border-solid border-[1px] border-[#FD3B62] flex flex-col p-3 min-h-[410px]"
           >
             <img
               src={item.image}
@@ -118,11 +118,12 @@ const OurFeature = () => {
               width={"90%"}
               height={"auto"}
               className="mx-auto"
+              style={{ borderRadius: "20px" }}
             />
             <div className="text-black text-[20px] font-medium mt-[13px] mb-2 ml-2">
               {item.header}
             </div>
-            <div className="text-black text-[16px] font-normal w-1/2 ml-2">
+            <div className="text-black text-[16px] font-normal w-2/3 ml-2">
               {item.content}
             </div>
           </SwiperSlide>
